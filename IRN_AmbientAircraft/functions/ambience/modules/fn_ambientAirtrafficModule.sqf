@@ -1,0 +1,1 @@
+diag_log ["ambient air traffic module executed with input: ",_this];
