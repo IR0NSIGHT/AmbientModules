@@ -19,15 +19,15 @@ class CfgFactionClasses {
 
 class CfgVehicles 
 	{
-		class ModuleDescription;
-		class Module_F {
-            class Edit; //import this thingy
-        };
+
+		class Module_F;
 		class ModuleAmbientAirtraffic: Module_F
 		{
+            class Combo;
+            class Edit; //import this thingy
 			author = "IR0NSIGHT";
 			//??? _generalMacro = "ModuleAmbientBattles";
-			scope = 2;
+			scope = 2; //editor visible
 			icon = "\a3\Modules_F_Curator\Data\iconSmoke_ca.paa";
 			portrait = "\a3\Modules_F_Curator\Data\portraitSmoke_ca.paa";
 			displayName = "Ambient Airtraffic";
@@ -35,69 +35,49 @@ class CfgVehicles
 			function = "IRN_fnc_ambientAirtrafficModule";
 			is3DEN = 1;
 			isGlobal = 0; //only server
-			isTriggerActivated = 1;
+			isTriggerActivated = 0; //wait till all synched triggers are active
 			class Arguments //make buttons n stuff
 			{
-				class distance: Edit
+                class timeout: Edit {
+                    displayName = "Average timeout";
+                    description = "Average time in seconds before the next aircraft is spawned.";
+                    defaultValue = "120";
+                };
+				class planes: Edit
 				{
-					displayName = "Distance";
-					description = "Distance of Sounds (closer means louder)";
-	
+					displayName = "Aircraft/Weights";
+					description = "Classnames and Weighting of aircraft in an array";
+                    defaultValue = "B_Heli_Light_01_dynamicLoadout_F,2,B_Plane_Fighter_01_F,1";
 				};
-				class duration
+				class duration: Combo
 				{
-					displayName = "Duration";
-					description = "Duration of Sounds in Minutes";
+					displayName = "Side";
+					description = "Aircrafts will belong to this side.";
 					class values
 					{                  
 						class 1
                         {
-                            name = "1 Minute";
-                            value = "60";
+                            name = "West";
+                            value = "blufor";
                             default = 1;
                         };
                         class 2
                         {
-                            name = "2 Minutes";
-                            value = "120";
+                            name = "East";
+                            value = "opfor";
                         };
-                        class 5
+                        class 3
                         {
-                            name = "5 Minutes";
-                            value = "300";
+                            name = "Independent";
+                            value = "ind";
                         };
-                        class 10
+                        class 4
                         {
-                            name = "10 Minutes";
-                            value = "600";
-                        };
-                        class 30
-                        {
-                            name = "30 Minutes";
-                            value = "1800";
-                        };
-                        class 60
-                        {
-                            name = "60 Minutes";
-                            value = "3600";
-                        };
-                        class 120
-                        {
-                            name = "120 Minutes";
-                            value = "7200";
-                        };
-                        class Infinite
-                        {
-                            name = "Infinite";
-                            value = "25555555";
+                            name = "Civilian";
+                            value = "civ";
                         };
 					};
 				};
-			};
-			class ModuleDescription: ModuleDescription
-			{
-				position = 1;
-				description = "Create ambient battle sounds. Sound center is module position.";
 			};
 		};
 	};
