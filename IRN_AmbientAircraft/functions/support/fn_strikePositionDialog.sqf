@@ -81,15 +81,17 @@ _content = [
 
 _onConfirm = {
 	params["_output","_args"];
-	systemChat ("output:"+str _output);
 	_output params ["_planeClass","_bombType","_bombCount","_flyheight","_dir","_side"];
 	_args params ["_pos"];
+
 	//format input
 	_bombCount = round _bombCount;
 	_flyheight = _flyheight * 10;
-	//call airstrike
-	[_pos,_planeClass,_bombType, _bombCount,_flyheight,_dir,_side] call IRN_fnc_strikePosition;	//TODO use function
+
+ 	//call airstrike function on server
+ 	[_pos,_planeClass,_bombType, _bombCount,_flyheight,_dir,_side] remoteExec ["IRN_fnc_strikePosition",2];
 };
+
 _onCancel = {};
 _args = [_pos];
 

@@ -2,7 +2,8 @@
 	Function
 	TODO: 
 	-	allow moving targets/objects, update target pos constantly
-	-	bomb type selection
+	-	early exit condition if plane was shot down
+	-	option to set plane as "no interact/captive" so it wont attack/be attacked.
  */
 
 params [
@@ -16,7 +17,7 @@ params [
 	["_spawnPos",[0,0,0],[[]],3], 										//spawnpos for plane (ignore z)
 	["_despawnPos",[-5000,0,0],[[]],3]									//despawn pos for plane  (ignore z)
 ];
-diag_log ["bomb run ",_this];
+
 _error = {
 	params ["_mssg","_extra"];
 	diag_log [_mssg,_extra];
@@ -51,8 +52,7 @@ _dir = [ //direction compass -> 2d vector on grid
 	0
 ];
 _despawnPos set [2,_flyHeight];
-diag_log ["params for spawnplane:",_this];
-diag_log ["side plane:",_side];
+
 _bombCount = (0 max (_bombCount -1));
 //TODO allow aborting/redirecting strike
 //plane class:
@@ -66,7 +66,6 @@ _arr =
 _arr params ["_plane","_crew","_grp"];
 _plane setVelocityModelSpace [0, 100, 0]; //pushes car forward
 
-diag_log ["spawned plane:",_arr];
 
 //make plane ignore everyone
 _grp setBehaviour "AWARE";
@@ -109,6 +108,7 @@ if (_bombCount == 0) then {
 	};
 };
 planetarget = _target;
+
 //mark target (debug)
 
 //for "_i" from -20 to 20 do {
