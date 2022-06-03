@@ -1,4 +1,3 @@
-class CfgFunctions {
     class irn {
         class Ambience {
             file = "IRN_AmbientAircraft\functions\ambience";
@@ -19,9 +18,11 @@ class CfgFunctions {
             file =  "IRN_AmbientAircraft\functions\support";
             class strikePosition {};
             class strikePositionDialog {};
+            class strikePositionList {};    //TODO
 
-            class strikePositionList {};
-            class airstrikeModule {}; //obsolete (?)
+
+            class artilleryVolley {};
+            class artilleryVolleyDialog {};
         };
 
         class init {

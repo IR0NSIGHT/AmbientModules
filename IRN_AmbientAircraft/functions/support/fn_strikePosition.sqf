@@ -1,10 +1,45 @@
-/**
-	Function
-	TODO: 
-	-	allow moving targets/objects, update target pos constantly
-	-	early exit condition if plane was shot down
-	-	option to set plane as "no interact/captive" so it wont attack/be attacked.
- */
+/* 
+*	@Author: IR0NSIGHT 
+*	@Date: 2022-06-03 17:41:16 
+*	@Last Modified time: 2022-06-03 17:41:16 
+*	 
+*	Description: 
+*		Spawns specified aircraft that will fly over the target position and
+*		bombs will impact near target/precisely at target. Flying height will cause bigger spread.
+*		bombcount == 1 will cause precise, guided bomb
+* 
+*	Environment: 
+*		SERVER, SUSPENDABLE 
+*		 
+*	Parameter(s): 
+*		0: can be of:
+*			posASL - target position 
+*			object - target object
+*			string - markername
+*		 
+*		1: string - (Optional, default "O_Plane_CAS_02_dynamicLoadout_F") plane classname for spawned plane
+*		 
+*		2: string - (Optional, default "Bomb_03_F") bomb classname to use for bombs
+*		 
+*		3: number - (Optional, default 2..4) amount of bombs to drop 
+*		 
+*		4: number - (Optional, default 150) meters, fly in height above ground 
+*		 
+*		5: number - (Optional, default 150) direction of compass (0..360) which is attack vector for planetarget
+*
+*		6: side - (Optional, default east) side which plane will belong to.
+*
+*		7: posASL - (Optional, default [-5000,0,0]) spawnposition for plane, #2 (z value) ignored
+*
+*		8: posASL - (Optional, default [-5000,0,0]) despawnposition for plane, #2 (z value) ignored
+*		 
+*	Returns: 
+*		plane
+* 
+*	Examples: 
+*		[getPosWorld player] call IRN_fnc_strikePosition
+*/
+
 
 params [
 	["_target",[],[[],objNull,""],3],										//targetpos (ASL) to bomb, or object or marker
@@ -14,7 +49,7 @@ params [
 	["_flyHeight",150,[0]],													//how low to fly over the target (meters above ground), impacts spread of bombs.
 	["_dir",45,[0]],  														//in what direction to fly over the target (compass)
 	["_side",east,[civilian]],												//side that is performing the bomb run: default civilian (wont be shot at)
-	["_spawnPos",[0,0,0],[[]],3], 										//spawnpos for plane (ignore z)
+	["_spawnPos",[-5000,0,0],[[]],3], 										//spawnpos for plane (ignore z)
 	["_despawnPos",[-5000,0,0],[[]],3]									//despawn pos for plane  (ignore z)
 ];
 
