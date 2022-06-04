@@ -1,3 +1,4 @@
+class CfgFunctions {
     class irn {
         class Ambience {
             file = "IRN_AmbientAircraft\functions\ambience";
