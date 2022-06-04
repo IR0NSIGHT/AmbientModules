@@ -63,10 +63,10 @@ while {time < _stopTime} do {
     _dir = [_length*cos(_theta),_length*sin(_theta),0];
     _dir set [2,_dir#2+ _spawnHeight +random _spawnHeight/2];    //300m above ground
     _pos = _center vectorAdd _dir;
-
     //spawn projectile
     _proj = createVehicle[_projectile,_pos];
     _proj setPosWorld _pos;
     _proj setVelocity [0,0,-_projectileSpeed];
-    sleep random [0.5*_intensity,_intensity,2*_intensity];
+    _proj setVectorDirAndUp[[0,0,-1],[1,0,0]];
+    sleep random [0,_intensity,2*_intensity];
 };
