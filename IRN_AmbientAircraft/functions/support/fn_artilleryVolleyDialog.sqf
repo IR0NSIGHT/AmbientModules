@@ -25,29 +25,72 @@ params ["_pos"];
 _radiusC = [
 	"slider",
 	"Radius",
-	[50,1000,100,0],//
+	[25,1000,100,0],//
 	false
 ];
 
 _durationC = [
 	"slider",
 	"Duration (seconds)",
-	[5,300,15,0],//
+	[3,300,15,0],//
 	false
 ];
 
+_delay = [
+	"slider",
+	"Delay/Simulated artillery distance",
+	[0,60,0,{
+		_this = round _this;
+		(str _this)+ "s|"+ str round(_this/10)+"km"
+	}]
+];
+
+_discreteValues = [0.1,0.2,0.5,1,2,4,8,16];
+missionNamespace setVariable ["irn_modZeusDiscreteValues",_discreteValues];
 _intensityC = [
 	"slider",
-	"Intensity (seconds between impacts)",
-	[0.5,10,2,1],//
+	"Seconds between impacts",
+	[0,1,0,
+		{
+			_discreteValues = missionNamespace getVariable ["irn_modZeusDiscreteValues",[]];
+			_maxIdx = -1 + count _discreteValues;
+			_idx = 0 max round (_this*_maxIdx);	//safety measure?
+			str (_discreteValues#_idx)
+		}
+	],//
 	false
 ];
+_projectiles = [
+	//category: flare, smoke, HE
+	//format: [classname, displayname, isFlare]
+	//40mm UGL
+	["F_40mm_White"," 40mm Flare white",true],
+	["F_40mm_Red"," 40mm Flare red",true],
+	["F_40mm_Green"," 40mm Flare green",true],
+	["G_40mm_HE"," 40mm HE",false],
+
+	//82mm mortar
+//	["Flare_82mm_AMOS_White"," 82mm Flare",true],	//TODO doesnt work?
+	["Smoke_82mm_AMOS_White"," 82mm Smoke",false],
+	["Sh_82mm_AMOS"," 82mm HE",false],
+
+	//155mm mortar
+	["Smoke_120mm_AMOS_White","155mm Smoke ",false],
+	["Sh_155mm_AMOS","155mm HE",false],
+
+	//230mm MRL rocket
+	["R_230mm_HE","230mm HE Rocket",false]
+];
+
 
 _projectileC = [
 		"list",
 		"Mortar ammo type",
-		[[["F_40mm_White",true],["F_40mm_Red",true],["F_40mm_Green",true],["Smoke_82mm_AMOS_White",false],["Smoke_120mm_AMOS_White",false],["Sh_82mm_AMOS",false],["Sh_155mm_AMOS",false]],
-		["Flare white 40mm","Flare red 40mm","Flare green 40mm","Smoke 82mm","Smoke 120mm","HE 82mm","HE 155mm"],0],
+		[
+			_projectiles apply {[_x#0,_x#2]},
+			_projectiles apply {_x#1},
+			0
+		],
 		false
 ];
 
@@ -56,12 +99,13 @@ _content = [
 	_radiusC,
 	_durationC,
 	_intensityC,
-	_projectileC
+	_projectileC,
+	_delay
 ];
 
 _onConfirm = {
 	params["_output","_args"];
-	_output params ["_radius","_duration","_timeBetweenImpact","_projectile"];
+	_output params ["_radius","_duration","_timeBetweenImpactIdx","_projectile","_delay"];
 	_projectile params ["_projClass","_isFlare"];
 	_spawnHeight = 300;
 	_speed = 200;
@@ -70,14 +114,28 @@ _onConfirm = {
 		_speed = 0.5;
 	};
 	_args params ["_pos"];
+
+	//get discrete value for time between impacts
+	_discreteValues = missionNamespace getVariable ["irn_modZeusDiscreteValues",[]];
+	_maxIdx = -1 + count _discreteValues;
+	_timeBetweenImpact = _discreteValues#(0 max round (_timeBetweenImpactIdx*_maxIdx));
+	//
+
 	_args = [_pos,_radius, _duration,  _projClass, _speed,_spawnHeight,_timeBetweenImpact];
-	diag_log ["calling mortar fire with args:",_args];
- 	//call mortar volley function on server
-	//_args execVM "fn_artilleryVolley.sqf";
- 	_args remoteExec ["IRN_fnc_artilleryVolley",2];
+	[_delay,_args] spawn {
+		params ["_delay","_args"];
+		sleep _delay;
+		diag_log ["calling mortar fire with args:",_args];
+		//call mortar volley function on server
+		//_args execVM "fn_artilleryVolley.sqf";
+		_args remoteExec ["IRN_fnc_artilleryVolley",2];
+	}
+
 };
 
 _onCancel = {};
 _args = [_pos];
 
 [_title,_content,_onConfirm,_onCancel,_args] call zen_dialog_fnc_create;
+
+
