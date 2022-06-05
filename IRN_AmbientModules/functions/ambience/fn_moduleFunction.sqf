@@ -1,1 +1,0 @@
-diag_log["module function was called:",_this];

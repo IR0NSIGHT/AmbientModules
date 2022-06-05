@@ -66,7 +66,12 @@ while {time < _stopTime} do {
     //spawn projectile
     _proj = createVehicle[_projectile,_pos];
     _proj setPosWorld _pos;
-    _proj setVelocity [0,0,-_projectileSpeed];
     _proj setVectorDirAndUp[[0,0,-1],[1,0,0]];
-    sleep random [0,_intensity,2*_intensity];
+
+    //set velocity
+    sleep 0.02;
+    _v = [0,0,-_projectileSpeed] vectorAdd wind;
+    _proj setVelocity _v;
+
+    sleep -0.02+random [0,_intensity,2*_intensity];
 };

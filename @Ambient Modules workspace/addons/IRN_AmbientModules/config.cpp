@@ -4,7 +4,7 @@ class CfgPatches {
         author = "IR0NSIGHT";
         requiredVersion = 1.0;
 
-        requiredAddons[] = {"A3_Modules_F"};
+        requiredAddons[] = {"A3_Modules_F","zen_modules","zen_custom_modules"};
         units[] = {"IRN_ModuleAirstrikeZeus"};
         weapons[] = {};
     };
@@ -97,7 +97,7 @@ class CfgVehicles
 			//};
 		};
 */
-        class IRN_ModuleAirstrikeZeus: Module_F
+ /*       class IRN_ModuleAirstrikeZeus: Module_F
 		{
 			author = "IR0NSIGHT";
 			scope = 2; //editor visible
@@ -112,7 +112,8 @@ class CfgVehicles
 			is3DEN = 0;
 			isGlobal = 0; //only server
 			isTriggerActivated = 0; //wait till all synched triggers are active
-		};
+		};	*/
 	};
+
 
 #include "CfgFunctions.cpp"
