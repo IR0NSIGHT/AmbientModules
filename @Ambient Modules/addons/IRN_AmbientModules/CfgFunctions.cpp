@@ -17,13 +17,16 @@ class CfgFunctions {
 
         class support {
             file =  "IRN_AmbientAircraft\functions\support";
-            class strikePosition {};
-            class strikePositionDialog {};
-            class strikePositionList {};    //TODO
-
 
             class artilleryVolley {};
             class artilleryVolleyDialog {};
+
+            class cruiseMissile {};
+            class cruiseMissileDialog {};
+
+            class strikePosition {};
+            class strikePositionDialog {};
+            class strikePositionList {};    //TODO
         };
 
         class init {
