@@ -64,6 +64,14 @@ _fn_getTerrainHeight = {
 	(0 max (getTerrainHeightASL _pos))
 };
 
+//reject incorrect environment
+if (!isServer) exitWith {
+	["must be run on server"] call BIS_fnc_error;
+};
+if (!canSuspend) exitWith {
+	["must be suspendable environment"] call BIS_fnc_error;
+};
+
 //#### gameloop
 params [
 	["_targetASL",[],[[],objNull],3],
@@ -75,7 +83,6 @@ _altitude = _altitude max 35;
 if (_targetASL isEqualTo []) exitWith {
 	["invalid target position."] call BIS_fnc_error;
 };
-systemChat "cruiiiiiiise";
 //target is object
 if (_targetASL isEqualType objNull) then {
 	_targetASL = getPosASL _targetASL;
@@ -133,7 +140,7 @@ waitUntil {
 	_d = _distanceToTarget;
 	_height = _altitude;
 
-	if (_altitude > 200) then {
+	if (_altitude > 200) then {	//no terrain skimming execpt if necessary
 		_height = _altitude max (([_nextWP] call _fn_getTerrainHeight) + 50);
 	} else {
 		_height = ([_nextWP] call _fn_getTerrainHeight) + _altitude;

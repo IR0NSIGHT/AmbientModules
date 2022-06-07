@@ -33,3 +33,10 @@
 	"Artillery Barrage", 
 	irn_fnc_artilleryVolleyDialog
 ]  call zen_custom_modules_fnc_register;
+
+//cruise missile zeus module
+[
+	"Fire Support",
+	"Cruise Missile Strike",
+	irn_fnc_cruiseMissileDialog
+] call zen_custom_modules_fnc_register;
