@@ -59,7 +59,7 @@ _error = {
 	[_mssg] call BIS_fnc_error;
 };
 _abort = false;
-//test valid spawnpos, targetpos, despawnpos
+// ASSERT ARGUMENT VALIDITY
 if (_spawnPos isEqualTo [] || _target isEqualTo [] || _despawnPos isEqualTo []) exitWith {
 	["invalid positions given:",[_spawnPos,_target,_despawnPos]] call _error;
 };
@@ -79,6 +79,7 @@ if (_abort) exitWith {
 	["aborted bc faulty input parameters"] call _error;
 };
 
+//adjust arguments, calculate values
 _flyHeight = _flyHeight max 75; 
 _spawnPos set [2,_flyHeight];
 _dir = [ //direction compass -> 2d vector on grid
@@ -87,10 +88,10 @@ _dir = [ //direction compass -> 2d vector on grid
 	0
 ];
 _despawnPos set [2,_flyHeight];
-
 _bombCount = (0 max (_bombCount -1));
+
 //TODO allow aborting/redirecting strike
-//plane class:
+//spawn plane
 _arr =
 [
 	_spawnPos,		//position
@@ -105,7 +106,7 @@ _plane setVelocityModelSpace [0, 100, 0]; //pushes car forward
 //make plane ignore everyone
 _grp setBehaviour "AWARE";
 _grp setCombatMode "BLUE";
-//_plane setCaptive true;
+//_plane setCaptive true;	//TODO optional
 _plane flyInHeight _flyHeight;
 
 //public control var for abort 
@@ -113,9 +114,16 @@ _plane setVariable ["irn_bombrun",1,true]; //on target
 
 //add move waypoints for plane
 _i = 0;
-_wps = []; _wp = ""; _o = 4000;
+_wps = []; _wp = ""; _o = 500;
 
-_wps append [(_target vectorAdd (_dir vectorMultiply (_o))),[]+_target,(_target vectorAdd (_dir vectorMultiply (-1*_o))),_despawnPos];
+//create waypoints so that plane flies straight over the target.
+_wps append [
+	(_target vectorAdd (_dir vectorMultiply (2*_o))),
+	(_target vectorAdd (_dir vectorMultiply (_o))),
+	[]+_target,
+	(_target vectorAdd (_dir vectorMultiply (-1*_o))),
+	(_target vectorAdd (_dir vectorMultiply (-2*_o))),
+	_despawnPos];
 {
 	_i = _i + 1; 
 	_x set [2,_flyHeight];
@@ -123,6 +131,7 @@ _wps append [(_target vectorAdd (_dir vectorMultiply (_o))),[]+_target,(_target 
 	_wp setWaypointSpeed "FULL";
 	_wp setWaypointCompletionRadius 1000; //plane might end up circeling infinetly otherwise.
 } forEach _wps;
+
 //add plane to Zeus
 {
 	_x addCuratorEditableObjects [[_plane], true];	
@@ -135,8 +144,8 @@ _spread = 20*_flyHeight/100;
 if (_bombCount == 0) then {
 	_bombPosArr = [_target]; //right on target
 } else {
-	for "_i" from -0.5 *_bombCount to 0.5 *_bombCount do {
-		_bombPos = _target vectorAdd (_dir vectorMultiply _offset * _i);
+	for "_i" from 0.5 *_bombCount to -0.5 *_bombCount step -1 do {
+		_bombPos = _target vectorAdd (_dir vectorMultiply _offset * _i);	
 		_bombPos = _bombPos vectorAdd [-0.5*_spread + random _spread,-0.5*_spread + random _spread,0]; //shift position randomly +/- 10m
 		_bombPos set [2,1 + (getTerrainHeightASL _bombPos)];
 		_bombPosArr pushBack _bombPos;
@@ -169,7 +178,7 @@ planetarget = _target;
 
 		//plane is close to target, release bombs
 		_targetOffset = abs((getDir _plane) - (_plane getDir _target));
-		if (_targetOffset < 10 && _plane distance2D _target < 300) exitWith { 
+		if (_targetOffset < 20 && _plane distance2D _target < 300) exitWith { 
 			_splashDir = (getPosWorld _plane) vectorDiff _target; //vector from target to plane
 			_splashDir = (_splashDir vectorMultiply 0.95);
 			_bombPosArr = _bombPosArr apply {[_x,_x vectorAdd _splashDir]}; //offset spawn pos for bombs to be near plane
@@ -181,33 +190,21 @@ planetarget = _target;
 					_pos = _x select 1;
 					_bomb = _bombType createVehicle [0,-random 1000,1000];
 					_bomb setPosWorld _pos;
+					_bomb setDir (getDir _plane);
 					//helper
 					//_h = "Sign_Sphere200cm_F" createVehicle (getPosWorld _bomb);
 					//_h = "Sign_Sphere200cm_F" createVehicle [0,0,0];
 					//_h attachTo [_bomb,[0,0,0]];
 				};
 
-				[_bomb,_x select 0,_splashSpeed] spawn {
-					params ["_bomb","_target","_speed"];
+				[_bomb,_x select 0,_splashSpeed,_plane] spawn {
+					params ["_bomb","_target","_speed","_plane"];
 					private ["_t","_dir"];
 					_pos = [];
-					_t = 3;
-					//_bomb addEventHandler ["hit", {
-					//	params ["_unit", "_killer"];
-					//	_pos = getPosWorld _unit;
-					//	if (!surfaceIsWater _pos) then {
-					//	_crater = createVehicle ["Land_ShellCrater_02_small_F",[0,-random 1000,1000]];
-					//	_crater setDir (random 360);
-					//	_pos set [2,(getTerrainHeightASL _pos)-0.7];
-					//	_crater setPosWorld _pos;
-					//	_normal = surfaceNormal	[_pos#0,_pos#1];
-					//	_crater setVectorUp _normal;
-					//	};
-					//}];
-
-					while {!isNull _bomb && _t < 30 && (getPosWorld _bomb )#2>_target#2} do {	//30 seconds = 4000 meter freefall
+					_t = 1/8*(speed _plane)/9.81;	//adjust for proper start speed
+					while {!isNull _bomb && _t < 120 && (getPosWorld _bomb )#2>_target#2} do {	//30 seconds = 4000 meter freefall
 						_dir = (vectorNormalized (_target vectorDiff(getPosWorld _bomb)));
-						_bomb setVelocity (_dir vectorMultiply (9.81*_t*_t));
+						_bomb setVelocity (_dir vectorMultiply (9.81*_t*sqrt(2)));	//simulate falling vertical speed v = a*t, assume flying at angle 45° -> total velocity = sqrt(2)*g*t
 						_pos = getPosWorld _bomb;
 						sleep 0.1;
 						_t = _t + 0.1;

@@ -62,6 +62,14 @@ _directionContent = [
 	}],
 	false
 ];
+
+_spawnDistanceC = [
+	"slider",
+	["Spawn distance","Plane will spawn x meters away"],
+	[6000,worldSize,6000,1],
+	false
+];
+
 _sideContent = [
 	"sides",
 	"Side",
@@ -76,20 +84,23 @@ _content = [
 	_bombCountContent,
 	_flyheightContent,
 	_directionContent,
+	_spawnDistanceC,
 	_sideContent
 ];
 
 _onConfirm = {
 	params["_output","_args"];
-	_output params ["_planeClass","_bombType","_bombCount","_flyheight","_dir","_side"];
+	_output params ["_planeClass","_bombType","_bombCount","_flyheight","_dir","_spawnDistance","_side"];
 	_args params ["_pos"];
 
 	//format input
 	_bombCount = round _bombCount;
 	_flyheight = _flyheight * 10;
-
- 	//call airstrike function on server
- 	[_pos,_planeClass,_bombType, _bombCount,_flyheight,_dir,_side] remoteExec ["IRN_fnc_strikePosition",2];
+	_spawnPos = (_pos getPos [_spawnDistance, _dir]);
+	_despawnPos = (_pos getPos [worldSize*sqrt(2), -_dir + (selectRandom [15,-15])]);// (_spawnPos getPos [1000,selectRandom [90,-90 -_dir]]);
+	_args = [_pos,_planeClass,_bombType, _bombCount,_flyheight,_dir,_side,_spawnPos,_despawnPos]; 
+ 	_args execVM "fn_strikePosition.sqf";
+ 	//_args remoteExec ["IRN_fnc_strikePosition",2];
 };
 
 _onCancel = {};

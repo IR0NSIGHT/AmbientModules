@@ -23,6 +23,13 @@ params ["_pos"];
 //See ZEN framework for documentation https://zen-mod.github.io/ZEN/#/frameworks/dynamic_dialog
 
 _radiusC = [
+	"slider:radius",
+	"Radius",
+	[25,1000,100,0,[_pos#0,_pos#1,0]],//
+	false
+];
+
+_radiusC = [
 	"slider",
 	"Radius",
 	[25,1000,100,0],//
@@ -42,7 +49,8 @@ _delay = [
 	[0,60,0,{
 		_this = round _this;
 		(str _this)+ "s|"+ str round(_this/10)+"km"
-	}]
+	}],
+	false
 ];
 
 _discreteValues = [0.1,0.2,0.5,1,2,4,8,16];

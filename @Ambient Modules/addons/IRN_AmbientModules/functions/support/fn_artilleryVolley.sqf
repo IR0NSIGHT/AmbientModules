@@ -62,16 +62,20 @@ while {time < _stopTime} do {
     _theta = (random 1) * 360;
     _dir = [_length*cos(_theta),_length*sin(_theta),0];
     _dir set [2,_dir#2+ _spawnHeight +random _spawnHeight/2];    //300m above ground
+    //_dir set [2,200];
     _pos = _center vectorAdd _dir;
+
     //spawn projectile
-    _proj = createVehicle[_projectile,_pos];
+    private ["_proj"];
+
+    _proj = createVehicle[_projectile,[-5000,-5000,5000+random 1000]];
+    sleep 0.02; //required otherwise the 230mm rocket just fucking glitches and dissapears.
     _proj setPosWorld _pos;
     _proj setVectorDirAndUp[[0,0,-1],[1,0,0]];
 
     //set velocity
-    sleep 0.02;
-    _v = [0,0,-_projectileSpeed] vectorAdd wind;
+    _v = [0,0,-_projectileSpeed];// vectorAdd wind;
     _proj setVelocity _v;
 
-    sleep -0.02+random [0,_intensity,2*_intensity];
+    sleep (-0.02+random [0,_intensity,2*_intensity]);
 };
