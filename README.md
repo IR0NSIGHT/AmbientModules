@@ -1,7 +1,7 @@
 # Ambient Modules
 By IR0NSIGHT
 ## Overview
-Steam Workshop Link: https://steamcommunity.com/sharedfiles/filedetails/?id=2816705133
+Steam Workshop Link: https://steamcommunity.com/sharedfiles/filedetails/?id=2816705133 <br>
 This mod adds modules to the ZEUS interface:
 - Single airstrike
 - Artillery barrage
