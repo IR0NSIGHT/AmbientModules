@@ -102,7 +102,7 @@ _projectileC = [
 		false
 ];
 
-_title = "Single Airstrike this position";
+_title = "Bombard this area";
 _content = [
 	_radiusC,
 	_durationC,

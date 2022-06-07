@@ -1,8 +1,8 @@
-name = "Ambient Modules 0.1.0";
+name = "Ambient Modules";
 //picture = "logo_zen_ca.paa";
 actionName = "GitHub";
 action = "https://github.com/IR0NSIGHT/AmbientModules";
-description = "Ambient Modules version 0.1.0";
+description = "Ambient Modules version 0.2.0";
 //logo = "logo_zen_small_ca.paa";
 //logoOver = "logo_zen_small_ca.paa";
 tooltip = "Ambient Modules";

@@ -99,8 +99,8 @@ _onConfirm = {
 	_spawnPos = (_pos getPos [_spawnDistance, _dir]);
 	_despawnPos = (_pos getPos [worldSize*sqrt(2), -_dir + (selectRandom [15,-15])]);// (_spawnPos getPos [1000,selectRandom [90,-90 -_dir]]);
 	_args = [_pos,_planeClass,_bombType, _bombCount,_flyheight,_dir,_side,_spawnPos,_despawnPos]; 
- 	_args execVM "fn_strikePosition.sqf";
- 	//_args remoteExec ["IRN_fnc_strikePosition",2];
+ 	//_args execVM "fn_strikePosition.sqf";
+ 	_args remoteExec ["IRN_fnc_strikePosition",2];
 };
 
 _onCancel = {};
