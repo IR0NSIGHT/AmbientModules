@@ -11,26 +11,28 @@
 
 	Parameter(s):
 		0: posASL - center of the circle in position ASL
-
+            ["shapetype",[shapeparams]]
+                ["circle",[centerPosASL,radius]]
+                ["rect",anchorPoint/Object,[startPos,endPos]]
 		1: positive number - (Optional, default 50) radius of circle in meters
 
         2: positive number - (Optional, default 15) duration in seconds
 
-        3: string - (Optional, default "Sh_82mm_AMOS") classname of artillery round to use.
+        3: positive number - (Optional, default 1) average seconds between impacts
 
         4: positive number - (Optional, default 250) downwards projectile speed, allows slow speed for flares
 
         5: positive number - (Optional, default 500) height above ground to spawn projectile at
 
-        6: positive number - (Optional, default 1) average seconds between impacts
+        6: string - (Optional, default "Sh_82mm_AMOS") classname of artillery round to use.
 
 	Returns:
 		none
 
 	Examples:
 		[getPosWorld player, 500, 60] spawn irn_fnc_artilleryVolley;
-*/
 
+*/
 
 {
 	if (_x isKindOf "Sign_Sphere200cm_F") then {
@@ -39,14 +41,15 @@
 } foreach allMissionObjects "all";
 
 params [
-    ["_center",[],[[]],[3]],    //posASL pls
-    ["_radius",50,[-1]],
+    ["_shape",[],[[], objNull],[3]],    //posASL pls
     ["_duration",15,[-1]],
+    ["_intensity",1,[-1]],  //seconds between impacts
     ["_projectile","Sh_82mm_AMOS",["owo"]],
     ["_projectileSpeed",250,[0]],
-    ["_spawnHeight",500,[0]],
-    ["_intensity",1,[-1]]   //seconds between impacts
+    ["_spawnHeight",500,[0]]
+       
 ];
+_shape params ["_shapeType","_shapeAnchor"];
 if (!canSuspend) exitWith {
     ["Environment needs to be suspendable."] call BIS_fnc_error;
 };
@@ -56,15 +59,9 @@ if (!isServer) exitWith {
 
 //TODO test for params to not be nonsense 
 _stopTime = time + _duration;
-while {time < _stopTime} do {
-    //get random position uniform across circle
-    _length = _radius*(sqrt(random 1)); //root bc: pi*(sqrt(rand)*r)^2 = pi*rand*r => uniform distribution across circle
-    _theta = (random 1) * 360;
-    _dir = [_length*cos(_theta),_length*sin(_theta),0];
-    _dir set [2,_dir#2+ _spawnHeight +random _spawnHeight/2];    //300m above ground
-    //_dir set [2,200];
-    _pos = _center vectorAdd _dir;
-
+while {time < _stopTime && (_shapeAnchor isEqualType [] || {!isNull _shapeAnchor})} do {
+    _rndPos = [_shape] call irn_fnc_getRndPointInShape;
+    _pos = _rndPos vectorAdd [0,0,(1+random 0.5)*_spawnHeight];
     //spawn projectile
     private ["_proj"];
 
@@ -79,3 +76,5 @@ while {time < _stopTime} do {
 
     sleep (-0.02+random [0,_intensity,2*_intensity]);
 };
+
+

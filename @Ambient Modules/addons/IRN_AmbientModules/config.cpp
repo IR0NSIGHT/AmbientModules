@@ -1,6 +1,6 @@
 class CfgPatches {
-    class irn_ambientAircraft {
-        name = "Ambient Aircraft Addon";
+    class irn_ambientModules {
+        name = "Ambient Module Addon";
         author = "IR0NSIGHT";
         requiredVersion = 1.0;
 
