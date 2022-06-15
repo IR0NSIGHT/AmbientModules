@@ -25,8 +25,8 @@ The missile will launch vertically upwards from its spawn position. The spawn po
 Showcase Video:
 https://www.youtube.com/watch?v=qHyAr0hJ_2A
 
-### Ambient Airtraffic (planned)
-This module will spawn ambient flybys, flying over the head of a random (non-flying) player. The flybys consist of 1 to 3 aircraft, the aircraft type is chosen randomly from a weighted list. These aircraft are 100% ambient, they will not engage anyone and will not be engaged by AI. 
+### Ambient Airtraffic 
+This module will spawn ambient flybys, flying over the head of a random (slow-moving, <15m/s) player. The flybys consist of 1 to 3 aircraft, the aircraft type is chosen randomly from a weighted list. These aircraft are 100% ambient, they will not engage anyone and will not be engaged by AI. 
 
 ### Ambient FLAK (planned)
 This module will turn an AA vehicle into ambient FLAK fire. The unit will engage any enemy aircraft with a given radius with large volleys of anti-air fire. The shots will miss the aircraft on purpose. This way player controlled aircraft are suppressed but not endangered. It can always be used to provide authentic background scenery for nearby groundtroops.
