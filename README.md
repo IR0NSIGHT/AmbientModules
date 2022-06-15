@@ -12,13 +12,18 @@ Place the module, select your parameters from the popup-dialog. A single plane w
 The spawned plane will be engaged by enemies, select civilian to avoid that. After the target was bombed, the plane will return to the edge of the map and despawn.
 
 ### Artillery Barrage
-This module allows to bombard a circular area around the module position. You can select from a variety of projectile type, choose the duration, radius and intensity of the bombardment. The impact positions are distributed randomly but uniformly across the circle. Choose a delay time to simulated far away artillery firing.
+This module allows to bombard a circular or rectangular area around the module position. You can select from a variety of projectile type, choose the duration, radius and intensity of the bombardment. The impact positions are distributed randomly but uniformly across the area. Choose a delay time to simulated far away artillery firing.
+The outline arrows only appear to the zeus and only if the anchor object is selected. Delete the anchor to end the artillery fire immediately.
 Possible usage: illuminate a battlefield; high intensity bursts of mortar fire; Smoke an area to cover an attack; Bombard a city; Suppress/Slow an enemy attack with widespread mortar fire; etc 
+Showcase video:
+https://youtu.be/vF5dLML7H18
 
 ### Cruise missile
 This module will spawn a cruise missile, targetting the modules position. The missile will follow terrain and impact precisely at the modules position. Extreme terrain, like high, vertical cliffs, might prove difficult for the missile to cross when flying at low altitudes. 
 Altitudes below 200m will skim the terrain at given altitude and skim the sea at 1/4 altitude. Altitudes above 200m will fly at constant height above sea level, and only skim terrain if necessary to avoid collision.
 The missile will launch vertically upwards from its spawn position. The spawn position should be 10 meters away from any obstacles to avoid explosion of the missile upon spawning.
+Showcase Video:
+https://www.youtube.com/watch?v=qHyAr0hJ_2A
 
 ### Ambient Airtraffic (planned)
 This module will spawn ambient flybys, flying over the head of a random (non-flying) player. The flybys consist of 1 to 3 aircraft, the aircraft type is chosen randomly from a weighted list. These aircraft are 100% ambient, they will not engage anyone and will not be engaged by AI. 
