@@ -4,8 +4,13 @@ class CfgFunctions {
             file = "IRN_AmbientModules\functions\ambience";
             class aaSniper {};
             class aaAmbient {};
-            class ambPlanes {};
-            class ambientAirtrafficModule {};
+            class ambientAirtraffic {};
+            //ambient airtraffic zeus dialog functions
+            class ambPlanes_ParamSelection {};
+            class ambPlanes_PlaneSelection {};
+            class ambPlanes_WeightSelection {};
+            //
+
         };
 
         class support {

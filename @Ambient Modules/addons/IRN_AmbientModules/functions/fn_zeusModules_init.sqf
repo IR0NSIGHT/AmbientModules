@@ -31,12 +31,22 @@
 [
 	"Fire Support",
 	"Artillery Barrage", 
-	irn_fnc_artilleryVolleyDialog
+	irn_fnc_artilleryVolleyDialog,
+	"IRN_AmbientModules\images\icon_arty_3.paa"	
 ]  call zen_custom_modules_fnc_register;
 
 //cruise missile zeus module
 [
 	"Fire Support",
 	"Cruise Missile Strike",
-	irn_fnc_cruiseMissileDialog
+	irn_fnc_cruiseMissileDialog,
+	"IRN_AmbientModules\images\icon_cruise_missile.paa"	
+] call zen_custom_modules_fnc_register;
+
+//cruise missile zeus module
+[
+	"AI",
+	"Ambient Airtraffic",
+	irn_fnc_ambPlanes_ParamSelection,
+	"IRN_AmbientModules\images\icon_airtraffic.paa"	
 ] call zen_custom_modules_fnc_register;
