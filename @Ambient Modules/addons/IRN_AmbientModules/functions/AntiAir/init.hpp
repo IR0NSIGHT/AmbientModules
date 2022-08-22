@@ -1,9 +1,11 @@
 
 class AmbientAircraft
 {
-    file 	=	"IRN\functions\AmbientAircraft";
+    file 	=	"IRN_AmbientModules\functions\AntiAir";
 
     class aaSniper {};
     
+    //ambient AA gun
     class aaAmbient {};
+    class aaAmbientDialog {};
 };

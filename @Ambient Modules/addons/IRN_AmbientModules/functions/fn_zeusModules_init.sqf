@@ -50,3 +50,12 @@
 	irn_fnc_ambPlanes_ParamSelection,
 	"IRN_AmbientModules\images\icon_airtraffic.paa"	
 ] call zen_custom_modules_fnc_register;
+
+
+//ambient AA
+[
+	"Fire Support",
+	"Ambient AA",
+	irn_fnc_aaAmbientDialog,
+	""
+] call zen_custom_modules_fnc_register;

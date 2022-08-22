@@ -65,7 +65,7 @@ params ["_pos"];
 		//execute function
 		_params = [_pos,_spawnPos,_altitude];
 		//_params execVM "fn_cruiseMissile.sqf";
-		_params remoteExec ["IRN_fnc_cruiseMissile",0];
+		_params remoteExec ["IRN_fnc_cruiseMissile",2];
 	},	//accept
 	{},
 	[_pos]
