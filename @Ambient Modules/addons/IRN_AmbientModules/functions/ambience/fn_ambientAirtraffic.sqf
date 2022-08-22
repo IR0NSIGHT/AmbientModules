@@ -7,20 +7,23 @@
 *
 *	Parameter(s):
 *		0:	number - average timeout between flights in seconds
-*		1:  array of classnames - whitelisted aircrafts with weight, format: [planeclass, weight, planeclass, weight...] (optional)
-*		2:	side of planes	- which side the planes belong to, default west (optional)
-*		3:	number - duration (minutes)(optinonal, default = -1 = unlimited)
-*		4:	anchor object, used for control (optional) 
+*		1:  array of classnames - whitelisted aircrafts with weight, format: [planeclass, planeclass] (optional)
+*		2:	array of numbers -	weights for given aircraft. must be exact same length as classes
+*		3:	array of numbers -	maximum squadsize for given aircrafts. (optional, default 3). if given, must be exact same length as classes
+*		4:	side	-	side the airplane will belong to (on radar, has no real effect since unit is captive)
+*		4:	number - duration (minutes)(optional, default = -1 = unlimited)
+*		5:	position, used for spawning control object (optional, default [0,0,0]) 
 *		
 *	Returns
-*		control object (helipad) with var "irn_amb_planes_run"
+*		control object (VR pointer) with var in namespace: 
+*			"irn_amb_planes_classes"	
+*			"irn_amb_planes_weights"	
+*			"irn_amb_planes_timeout"	
+*			"irn_amb_planes_side"		
+*			"irn_amb_planes_squadronSize"
 *
 *	Examples:
-*		[15, ["B_Heli_Transport_03_unarmed_F",1,
-*		"B_Heli_Transport_01_F",1,
-*		"B_CTRG_Heli_Transport_01_sand_F",1,
-*		"B_Plane_CAS_01_dynamicLoadout_F",1,
-*		"B_Plane_Fighter_01_F",5]] spawn IRN_fnc_ambPlanes;
+*		[30, ["B_Heli_Transport_03_unarmed_F"],[1],[3],west,10,[0,0,0]] spawn IRN_fnc_ambPlanes;
 *		
 */
 

@@ -1,3 +1,35 @@
+/* 
+*	@Author: IR0NSIGHT 
+*	@Date: 2022-06-15 13:53:39 
+*	@Last Modified time: 2022-06-15 13:53:39 
+*	 
+*	Description: 
+*		opens ZEN dialog, called by fn_ambPlanes_PlaneSelection to select weights and squadsize for each planeclass
+*		calls fn_ambientAirtraffic on confirm with passed values.
+*		Not intended to be used outside of the chain of zeus dialogs for ambient airtraffic
+* 
+*	Environment: 
+*		player, any 
+*		 
+*	Parameter(s): 
+*		0: array of classnames - aircarft classes to use
+*		 
+*		1: positionASL - pos of zeus module
+*		 
+*		2: number - timeout between flight in seconds
+*		 
+*		3: side - side of planes
+*		 
+*		4: number - duration in minutes of airtraffic 
+*		 
+*	Returns: 
+*		nothing
+* 
+*	Examples: 
+*		_params = [_classes,_pos,_timeout,_side,_duration];
+*		_params call IRN_fnc_ambPlanes_WeightSelection;
+*/
+
 params ["_classes","_pos","_timeout","_side","_duration"];
 
 _contentArr = [];

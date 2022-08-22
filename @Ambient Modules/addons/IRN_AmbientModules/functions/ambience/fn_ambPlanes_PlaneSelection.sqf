@@ -1,3 +1,36 @@
+/* 
+*	@Author: IR0NSIGHT 
+*	@Date: 2022-06-15 13:57:40 
+*	@Last Modified time: 2022-06-15 13:57:40 
+*	 
+*	Description: 
+*		opens ZEN dialog used to select plane classes.
+*		called by fn_ambPlanes_ParamSelection.
+*		calls fn_ambPlanes_WeightSelection on confirm
+*		Not intended to be used outside of the chain of zeus dialogs for ambient airtraffic
+* 
+*	Environment: 
+*		player, any 
+*		 
+*	Parameter(s): 
+*		0: posASL - position of module
+*		 
+*		1: number - timeout between flights in seconds
+*		 
+*		2: side - side of planes
+*		 
+*		3: number - duration in minutes of airtraffic 
+*		 
+*		4: string, configparent - type the classes must inherit from in config (optional, default= "plane") 
+*		 
+*		 
+*	Returns: 
+*		nassing
+* 
+*	Examples: 
+*		[] call IRN_fnc_someFunction 
+*/
+
 params [
 	["_pos",[0,0,0],[[]],3],
 	["_timeout",30,[1]],

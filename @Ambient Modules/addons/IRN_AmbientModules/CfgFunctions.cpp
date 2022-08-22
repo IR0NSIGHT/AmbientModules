@@ -2,8 +2,6 @@ class CfgFunctions {
     class irn {
         class Ambience {
             file = "IRN_AmbientModules\functions\ambience";
-            class aaSniper {};
-            class aaAmbient {};
             class ambientAirtraffic {};
             //ambient airtraffic zeus dialog functions
             class ambPlanes_ParamSelection {};
@@ -33,6 +31,9 @@ class CfgFunctions {
                 postInit = 1;
             };
         };
-        #include "functions\shape\shape.hpp"
+        
+		#include "functions\shape\shape.hpp"
+		#include "functions\AntiAir\init.hpp"
+		
     };
 };
