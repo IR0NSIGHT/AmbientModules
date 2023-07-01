@@ -1,5 +1,9 @@
 class CfgFunctions {
     class irn {
+        class debug {
+            file = "IRN_AmbientModules\functions\debug";
+            class test_helloWorld {};
+        }
         class Ambience {
             file = "IRN_AmbientModules\functions\ambience";
             class ambientAirtraffic {};

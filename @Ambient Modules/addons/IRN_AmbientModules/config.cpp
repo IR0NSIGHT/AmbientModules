@@ -97,7 +97,7 @@ class CfgVehicles
 			//};
 		};
 */
- /*       class IRN_ModuleAirstrikeZeus: Module_F
+        class IRN_ModuleAirstrikeEden: Module_F
 		{
 			author = "IR0NSIGHT";
 			scope = 2; //editor visible
@@ -108,11 +108,28 @@ class CfgVehicles
 			portrait = "\a3\Modules_F_Curator\Data\portraitSmoke_ca.paa";
 			displayName = "Airstrike";
 			category = "Effects";
-			function = "IRN_fnc_airstrikeModule";
-			is3DEN = 0;
+			function = "irn_fnc_test_helloWorld";
+			is3DEN = 0;	//run while in 3den
 			isGlobal = 0; //only server
 			isTriggerActivated = 0; //wait till all synched triggers are active
-		};	*/
+		};	
+
+		class IRN_ModuleTriggerActivated: Module_F
+		{
+			author = "IR0NSIGHT";
+			scope = 2; //editor visible
+			scopeCurator = 2; //zeus visible
+			curatorCanAttach=1;//idk yet, seen in ZEN module base
+
+			icon = "\a3\Modules_F_Curator\Data\iconSmoke_ca.paa";
+			portrait = "\a3\Modules_F_Curator\Data\portraitSmoke_ca.paa";
+			displayName = "Airstrike Trigger";
+			category = "Effects";
+			function = "irn_fnc_test_helloWorld";
+			is3DEN = 0; //run while in 3den
+			isGlobal = 0; //only server
+			isTriggerActivated = 1; //wait till all synched triggers are active
+		};	
 	};
 
 
