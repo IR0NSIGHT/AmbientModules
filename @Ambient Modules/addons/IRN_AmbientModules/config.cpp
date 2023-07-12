@@ -76,6 +76,23 @@ class CfgVehicles
 			description = "Synched AA Units will fire wildly at enemy aircraft without hitting them.";
 		}
 	};	
+
+	class IRN_Module_SniperAA: IRN_ModuleBase
+	{
+		scope = 2; //editor visible
+		isGlobal = 0; //only server
+		isTriggerActivated = 0; //wait till all synched triggers are active
+
+		displayName = "Sniper Anti-Air";
+		function = "irn_fnc_aaSniperModule";
+		class Attributes: AttributesBase 
+		{
+			class ModuleDescription: ModuleDescription {};
+		};
+		class ModuleDescription: ModuleDescription {
+			description = "Synched AA Units will instantly see and engage all enemy aircraft within 2km.";
+		}
+	};	
 };
 
 
