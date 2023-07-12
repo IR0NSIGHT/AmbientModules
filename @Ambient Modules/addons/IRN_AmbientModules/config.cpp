@@ -11,126 +11,65 @@ class CfgPatches {
 };
 
 class CfgVehicles 
+{
+	class Logic;
+	class Module_F: Logic
 	{
-		class Module_F;	//import
-/*
-		class IRN_ModuleAmbientAirtraffic: Module_F
+		class AttributesBase
 		{
-            class Combo;
-            class Edit; //import this thingy
-			author = "IR0NSIGHT";
-			//??? _generalMacro = "ModuleAmbientBattles";
-			scope = 2; //editor visible
-			icon = "\a3\Modules_F_Curator\Data\iconSmoke_ca.paa";
-			portrait = "\a3\Modules_F_Curator\Data\portraitSmoke_ca.paa";
-			displayName = "Ambient Airtraffic";
-			category = "Effects";
-			function = "IRN_fnc_ambientAirtrafficModule";
-			is3DEN = 1;
-			isGlobal = 0; //only server
-			isTriggerActivated = 1; //wait till all synched triggers are active
-			class Arguments //make buttons n stuff
+			class Default;
+			class Edit;					// Default edit box (i.e. text input field)
+			class Combo;				// Default combo box (i.e. drop-down menu)
+			class Checkbox;				// Default checkbox (returned value is Boolean)
+			class CheckboxNumber;		// Default checkbox (returned value is Number)
+			class ModuleDescription;	// Module description
+			class Units;				// Selection of units on which the module is applied
+		};
+
+		// Description base classes (for more information see below):
+		class ModuleDescription
+		{
+			class AnyBrain;
+		};
+	};
+
+	class IRN_ModuleAirstrikeEden: Module_F
+	{
+		author = "IR0NSIGHT";
+		scope = 2; //editor visible
+
+		displayName = "Airstrike_01";
+		category = "Effects";
+		function = "irn_fnc_test_helloWorld";
+		isGlobal = 0; //only server
+		isTriggerActivated = 0; //wait till all synched triggers are active
+		class Attributes: AttributesBase //GUI to define input parameters to function
+		{
+			// Module-specific arguments:
+			class Yield: Combo	//available as _logic getVariable ["Yield", -1];
 			{
-                class timeout: Edit {
-                    displayName = "Average timeout";
-                    description = "Average time in seconds before the next aircraft is spawned.";
-                    defaultValue = "120";
-                };
-				class planes: Edit
+				property = "TAG_Module_Nuke_Yield";				// Unique property (use "<tag>_<moduleClass>_<attributeClass>" format to ensure that the name is unique)
+				displayName = "Nuclear weapon yield";			// Argument label
+				tooltip = "How strong will the explosion be";	// Tooltip description
+				typeName = "NUMBER";							// Value type, can be "NUMBER", "STRING" or "BOOL"
+				defaultValue = "50";							// Default attribute value. Warning: This is an expression, and its returned value will be used (50 in this case).
+
+				// Listbox items:
+				class Values
 				{
-					displayName = "Aircraft/Weights";
-					description = "Classnames and Weighting of aircraft in an array";
-                    defaultValue = "B_Heli_Light_01_dynamicLoadout_F,2,B_Plane_Fighter_01_F,1";
-				};
-				class duration: Combo
-				{
-					displayName = "Side";
-					description = "Aircrafts will belong to this side.";
-					class values
-					{                  
-						class 1
-                        {
-                            name = "West";
-                            value = "blufor";
-                            default = 1;
-                        };
-                        class 2
-                        {
-                            name = "East";
-                            value = "opfor";
-                        };
-                        class 3
-                        {
-                            name = "Independent";
-                            value = "ind";
-                        };
-                        class 4
-                        {
-                            name = "Civilian";
-                            value = "civ";
-                        };
-					};
+					class 50Mt	{ name = "50 megatons";	value = 50; };
+					class 100Mt	{ name = "100 megatons"; value = 100; };
 				};
 			};
+			class Budget: Edit {
+                property = "irn_amb_special_budget_id";
+                displayName = "Budget stolen from ace";
+                typeName = "NUMBER";
+                defaultValue = -1;
+            };
 		};
-
-        class IRN_ModuleAirstrike: Module_F
-		{
-           //class Combo;
-           //class Edit; //import this thingy
-			author = "IR0NSIGHT";
-			//??? _generalMacro = "ModuleAmbientBattles";
-			scope = 2; //editor visible
-			icon = "\a3\Modules_F_Curator\Data\iconSmoke_ca.paa";
-			portrait = "\a3\Modules_F_Curator\Data\portraitSmoke_ca.paa";
-			displayName = "Airstrike";
-			category = "Effects";
-			function = "IRN_fnc_airstrikeModule";
-			is3DEN = 1;
-			isGlobal = 0; //only server
-			isTriggerActivated = 1; //wait till all synched triggers are active
-			scopeCurator = 2;
-			scope = 2;
-			//class Arguments //make buttons n stuff
-			//{
-            //   
-			//};
-		};
-*/
-        class IRN_ModuleAirstrikeEden: Module_F
-		{
-			author = "IR0NSIGHT";
-			scope = 2; //editor visible
-			scopeCurator = 2; //zeus visible
-			curatorCanAttach=1;//idk yet, seen in ZEN module base
-
-			icon = "\a3\Modules_F_Curator\Data\iconSmoke_ca.paa";
-			portrait = "\a3\Modules_F_Curator\Data\portraitSmoke_ca.paa";
-			displayName = "Airstrike";
-			category = "Effects";
-			function = "irn_fnc_test_helloWorld";
-			is3DEN = 0;	//run while in 3den
-			isGlobal = 0; //only server
-			isTriggerActivated = 0; //wait till all synched triggers are active
-		};	
-
-		class IRN_ModuleTriggerActivated: Module_F
-		{
-			author = "IR0NSIGHT";
-			scope = 2; //editor visible
-			scopeCurator = 2; //zeus visible
-			curatorCanAttach=1;//idk yet, seen in ZEN module base
-
-			icon = "\a3\Modules_F_Curator\Data\iconSmoke_ca.paa";
-			portrait = "\a3\Modules_F_Curator\Data\portraitSmoke_ca.paa";
-			displayName = "Airstrike Trigger";
-			category = "Effects";
-			function = "irn_fnc_test_helloWorld";
-			is3DEN = 0; //run while in 3den
-			isGlobal = 0; //only server
-			isTriggerActivated = 1; //wait till all synched triggers are active
-		};	
-	};
+	};	
+};
 
 
 #include "CfgFunctions.cpp"
