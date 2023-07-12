@@ -35,11 +35,8 @@ class CfgVehicles
 			class Units;				// Selection of units on which the module is applied
 		};
 
-		// Description base classes (for more information see below):
-		class ModuleDescription
-		{
-			class AnyBrain;
-		};
+		// Description base class
+		class ModuleDescription;
 	};
 
 	class IRN_ModuleBase: Module_F
@@ -55,9 +52,10 @@ class CfgVehicles
 		isTriggerActivated = 0; //wait till all synched triggers are active
 
 		displayName = "Ambient Anti-Air";
-		function = "irn_fnc_test_helloWorld";
+		function = "irn_fnc_aaAmbientModule";
 		class Attributes: AttributesBase //GUI to define input parameters to function
 		{
+
 			class LethalRange: Edit {
                 property = "irn_amb_ambientAA_lethalRange";
                 displayName = "Lethal Range";
@@ -72,6 +70,7 @@ class CfgVehicles
                 typeName = "NUMBER";
                 defaultValue = 3000;
             };
+			class ModuleDescription: ModuleDescription {};
 		};
 		class ModuleDescription: ModuleDescription {
 			description = "Synched AA Units will fire wildly at enemy aircraft without hitting them.";

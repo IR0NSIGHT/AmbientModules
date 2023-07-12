@@ -8,4 +8,5 @@ class AmbientAircraft
     //ambient AA gun
     class aaAmbient {};
     class aaAmbientDialog {};
+    class aaAmbientModule {};
 };
