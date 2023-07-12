@@ -117,6 +117,62 @@ class CfgVehicles
 			description = "Will spawn a cruisemissile above synched object when trigger gets activated. If nothing is synched, the missile is spawned outside the map. Missile will target the module position";
 		}
 	};	
+
+	class IRN_Module_Airstrike: IRN_ModuleBase
+	{
+		scope = 2; //editor visible
+		isGlobal = 0; //only server
+		isTriggerActivated = 1; //wait till all synched triggers are active
+
+		displayName = "Airstrike";
+		function = "irn_fnc_airstrikeModule";
+		class Attributes: AttributesBase //GUI to define input parameters to function
+		{
+			class planeClass: Edit {
+                property = "irn_amb_Airstrike_planeClass";
+                displayName = "Plane Classname";
+				tooltip = "Which plane to use.";	// Tooltip description
+                typeName = "STRING";
+                defaultValue = "'I_Plane_Fighter_03_dynamicLoadout_F'";
+            };
+			class bombCount: Edit {
+                property = "irn_amb_Airstrike_bombCount";
+                displayName = "Bomb amount";
+				tooltip = "How many bombs to drop: 1 = precise hit, many=spread across area";	// Tooltip description
+                typeName = "NUMBER";
+                defaultValue = 3;
+            };
+			class altitude: Edit {
+                property = "irn_amb_Airstrike_altitude";
+                displayName = "Altitude";
+				tooltip = "Plane will fly in height x";	// Tooltip description
+                typeName = "NUMBER";
+                defaultValue = 150;
+            };
+			class side: Combo
+			{
+				property = "irn_amb_Airstrike_side";				// Unique property (use "<tag>_<moduleClass>_<attributeClass>" format to ensure that the name is unique)
+				displayName = "side";			// Argument label
+				tooltip = "Plane will be of side";	// Tooltip description
+				typeName = "NUMBER";							// Value type, can be "NUMBER", "STRING" or "BOOL"
+				defaultValue = 0;							// Default attribute value. Warning: This is an expression, and its returned value will be used (50 in this case).
+
+				// Listbox items:
+				class Values
+				{
+					class civ	{ name = "Civilian";	value = 0; };
+					class blufor { name = "BluFor"; value = 1; };
+					class opfor	{ name = "OpFor"; value = 2; };
+					class ind	{ name = "Independent"; value = 3; };
+				};
+			};
+			
+			class ModuleDescription: ModuleDescription {};
+		};
+		class ModuleDescription: ModuleDescription {
+			description = "Will spawn airstrikes targetting all synched objects upon trigger activation";
+		}
+	};	
 };
 
 

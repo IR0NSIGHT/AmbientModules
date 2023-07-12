@@ -13,6 +13,5 @@ if (_activated) then {
         [_logic, nil, _altitude] spawn IRN_fnc_cruiseMissile;
     };
     diag_log ["activate cruise missile from module for: ", _logic, " with params:",[getPosASL _logic, "?spawnpos?", _altitude]];
-
 };
 true

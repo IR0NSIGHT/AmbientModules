@@ -27,6 +27,8 @@ class CfgFunctions {
 
             class strikePosition {};
             class strikePositionDialog {};
+            class airstrikeModule {};
+            
             class strikePositionList {};    //TODO
         };
 

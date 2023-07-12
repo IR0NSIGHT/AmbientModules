@@ -1,7 +1,7 @@
 params [
 	"_positions",
-	["_planes",1,[0]],
-	["_range",50,[2]],
+	["_planeCount",1,[0]],
+	["_targetRandomRange",50,[2]],
 	["_planeClass",-1,[0]],
 	["_bombs",nil,[0]],
 	["_flyHeight",nil,[0]],
@@ -21,9 +21,9 @@ _positions = ((_positions apply {
 diag_log ["strike positions:",_this,_positions];
 _y = 0;
 {
-	for "_i" from 0 to (_planes-1) do {
+	for "_i" from 0 to (_planeCount-1) do {
 		[   
-			(_x vectorAdd [-0.5*_range + random _range,-0.5*_range + random _range,0]), 
+			(_x vectorAdd [-0.5*_targetRandomRange + random _targetRandomRange,-0.5*_targetRandomRange + random _targetRandomRange,0]), 
 			_planeClass,  
 			_bombs,
 			_flyHeight, 
