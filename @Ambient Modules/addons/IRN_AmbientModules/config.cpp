@@ -93,6 +93,30 @@ class CfgVehicles
 			description = "Synched AA Units will instantly see and engage all enemy aircraft within 2km.";
 		}
 	};	
+
+	class IRN_Module_CruiseMissile: IRN_ModuleBase
+	{
+		scope = 2; //editor visible
+		isGlobal = 0; //only server
+		isTriggerActivated = 1; //wait till all synched triggers are active
+
+		displayName = "Cruise Missile Strike";
+		function = "irn_fnc_cruiseMissileModule";
+		class Attributes: AttributesBase //GUI to define input parameters to function
+		{
+			class Altitude: Edit {
+                property = "irn_amb_cruiseMissile_altitude";
+                displayName = "Altitude";
+				tooltip = "<meters> Missile will follow terrain in this altitude.";	// Tooltip description
+                typeName = "NUMBER";
+                defaultValue = 40;
+            };
+			class ModuleDescription: ModuleDescription {};
+		};
+		class ModuleDescription: ModuleDescription {
+			description = "Will spawn a cruisemissile above synched object when trigger gets activated. If nothing is synched, the missile is spawned outside the map. Missile will target the module position";
+		}
+	};	
 };
 
 

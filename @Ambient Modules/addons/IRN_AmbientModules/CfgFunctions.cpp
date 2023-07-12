@@ -23,6 +23,7 @@ class CfgFunctions {
 
             class cruiseMissile {};
             class cruiseMissileDialog {};
+            class cruiseMissileModule {};
 
             class strikePosition {};
             class strikePositionDialog {};
