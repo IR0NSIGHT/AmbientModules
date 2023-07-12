@@ -10,6 +10,15 @@ class CfgPatches {
     };
 };
 
+class CfgFactionClasses {
+    class NO_CATEGORY;
+    class AMB_MODS: NO_CATEGORY {
+        displayName = "Ambient Modules";
+        priority = 2;
+        side = 7;
+    };
+};
+
 class CfgVehicles 
 {
 	class Logic;
@@ -33,16 +42,21 @@ class CfgVehicles
 		};
 	};
 
-	class IRN_ModuleAirstrikeEden: Module_F
+	class IRN_ModuleBase: Module_F
+	{
+
+	}
+
+	class IRN_ModuleAirstrikeEden: IRN_ModuleBase
 	{
 		author = "IR0NSIGHT";
 		scope = 2; //editor visible
-
-		displayName = "Airstrike_01";
-		category = "Effects";
-		function = "irn_fnc_test_helloWorld";
+		category = "AMB_MODS";
 		isGlobal = 0; //only server
 		isTriggerActivated = 0; //wait till all synched triggers are active
+
+		displayName = "Airstrike_01";
+		function = "irn_fnc_test_helloWorld";
 		class Attributes: AttributesBase //GUI to define input parameters to function
 		{
 			// Module-specific arguments:
