@@ -44,44 +44,38 @@ class CfgVehicles
 
 	class IRN_ModuleBase: Module_F
 	{
-
+		author = "IR0NSIGHT";
+		category = "AMB_MODS";
 	}
 
-	class IRN_ModuleAirstrikeEden: IRN_ModuleBase
+	class IRN_Module_AmbientAA: IRN_ModuleBase
 	{
-		author = "IR0NSIGHT";
 		scope = 2; //editor visible
-		category = "AMB_MODS";
 		isGlobal = 0; //only server
 		isTriggerActivated = 0; //wait till all synched triggers are active
 
-		displayName = "Airstrike_01";
+		displayName = "Ambient Anti-Air";
 		function = "irn_fnc_test_helloWorld";
 		class Attributes: AttributesBase //GUI to define input parameters to function
 		{
-			// Module-specific arguments:
-			class Yield: Combo	//available as _logic getVariable ["Yield", -1];
-			{
-				property = "TAG_Module_Nuke_Yield";				// Unique property (use "<tag>_<moduleClass>_<attributeClass>" format to ensure that the name is unique)
-				displayName = "Nuclear weapon yield";			// Argument label
-				tooltip = "How strong will the explosion be";	// Tooltip description
-				typeName = "NUMBER";							// Value type, can be "NUMBER", "STRING" or "BOOL"
-				defaultValue = "50";							// Default attribute value. Warning: This is an expression, and its returned value will be used (50 in this case).
-
-				// Listbox items:
-				class Values
-				{
-					class 50Mt	{ name = "50 megatons";	value = 50; };
-					class 100Mt	{ name = "100 megatons"; value = 100; };
-				};
-			};
-			class Budget: Edit {
-                property = "irn_amb_special_budget_id";
-                displayName = "Budget stolen from ace";
+			class LethalRange: Edit {
+                property = "irn_amb_ambientAA_lethalRange";
+                displayName = "Lethal Range";
+				tooltip = "<meters> AA will shoot down enemy aircraft inside this range. -1 to disable";	// Tooltip description
                 typeName = "NUMBER";
                 defaultValue = -1;
             };
+			class DetectionRange: Edit {
+                property = "irn_amb_ambientAA_detectionRange";
+                displayName = "Detection Range";
+				tooltip = "<meters> AA will detect and engange enemy aircraft inside this range";	// Tooltip description
+                typeName = "NUMBER";
+                defaultValue = 3000;
+            };
 		};
+		class ModuleDescription: ModuleDescription {
+			description = "Synched AA Units will fire wildly at enemy aircraft without hitting them.";
+		}
 	};	
 };
 
