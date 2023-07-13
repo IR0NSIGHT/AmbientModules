@@ -99,7 +99,7 @@ class CfgVehicles
 		scope = 2; //editor visible
 		isGlobal = 0; //only server
 		isTriggerActivated = 1; //wait till all synched triggers are active
-
+		icon = "IRN_AmbientModules\images\icon_cruise_missile.paa";
 		displayName = "Cruise Missile Strike";
 		function = "irn_fnc_cruiseMissileModule";
 		class Attributes: AttributesBase //GUI to define input parameters to function
@@ -123,7 +123,7 @@ class CfgVehicles
 		scope = 2; //editor visible
 		isGlobal = 0; //only server
 		isTriggerActivated = 1; //wait till all synched triggers are active
-
+		icon = "\a3\modules_f\data\portraitmodule_ca.paa";
 		displayName = "Airstrike";
 		function = "irn_fnc_airstrikeModule";
 		class Attributes: AttributesBase //GUI to define input parameters to function
@@ -179,7 +179,7 @@ class CfgVehicles
 		scope = 2; //editor visible
 		isGlobal = 0; //only server
 		isTriggerActivated = 1; //wait till all synched triggers are active
-
+        icon = "IRN_AmbientModules\images\icon_arty_3.paa";
 		displayName = "Artillery";
 		function = "irn_fnc_ArtilleryVolleyModule";
 		class Attributes: AttributesBase //GUI to define input parameters to function
@@ -242,7 +242,7 @@ class CfgVehicles
 			class ModuleDescription: ModuleDescription {};
 		};
 		class ModuleDescription: ModuleDescription {
-			description = "Will spawn airstrikes targetting all synched objects upon trigger activation";
+			description = "Will shell the area around the module with artillery. The module direction is used for a moving barrage.";
 		}
 	};	
 };
