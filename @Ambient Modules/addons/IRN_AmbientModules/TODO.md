@@ -5,13 +5,18 @@
 - README
 - functions
 
-### artillery module
-- select projectile type separate from ammo: 82mm + flare?
-- allow Katyuscha like rockets
-- cruise missile?
-- much boom, few ouch type? 40mm HE?
 
 ### airstrike
 - bombs impact against flight direction, bug
- 
+- planes are unreliable, might need to pin to a rail so they dont wiggle away from the target?
 
+### Editor modules
+- airstrike
+- cruise missile
+- aa ambient
+- aa sniper
+- artillery
+- airtraffic
+
+
+#### use icons in editor modules

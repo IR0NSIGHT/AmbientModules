@@ -20,6 +20,8 @@ class CfgFunctions {
 
             class artilleryVolley {};
             class artilleryVolleyDialog {};
+            class artilleryVolleyModule {};
+            class artilleryInitializer {};
 
             class cruiseMissile {};
             class cruiseMissileDialog {};

@@ -173,6 +173,78 @@ class CfgVehicles
 			description = "Will spawn airstrikes targetting all synched objects upon trigger activation";
 		}
 	};	
+
+	class IRN_Module_Artillery: IRN_ModuleBase
+	{
+		scope = 2; //editor visible
+		isGlobal = 0; //only server
+		isTriggerActivated = 1; //wait till all synched triggers are active
+
+		displayName = "Artillery";
+		function = "irn_fnc_ArtilleryVolleyModule";
+		class Attributes: AttributesBase //GUI to define input parameters to function
+		{
+			class radius: Edit {
+                property = "irn_amb_artillery_radius";
+                displayName = "Radius";
+				tooltip = "<meter> Radius where shells will impact";	// Tooltip description
+                typeName = "NUMBER";
+                defaultValue = 100;
+            };
+
+			class movingDistance: Edit {
+                property = "irn_amb_artillery_movingDistance";
+                displayName = "Moving Distance";
+				tooltip = "<meter> Impact field will move x meters during lifetime into module's direction.";	// Tooltip description
+                typeName = "NUMBER";
+                defaultValue = 0;
+            };
+
+			class duration: Edit {
+                property = "irn_amb_artillery_duration";
+                displayName = "duration";
+				tooltip = "<seconds> duration of shelling.";	// Tooltip description
+                typeName = "NUMBER";
+                defaultValue = 30;
+            };
+
+			class intensity: Edit {
+                property = "irn_amb_artillery_intensity";
+                displayName = "Intensity";
+				tooltip = "<seconds> Average time between impacts.";	// Tooltip description
+                typeName = "NUMBER";
+                defaultValue = 2;
+            };
+
+			class ammo: Combo
+			{
+				property = "irn_amb_artillery_ammo";				// Unique property (use "<tag>_<moduleClass>_<attributeClass>" format to ensure that the name is unique)
+				displayName = "AmmAmmunitiono";			// Argument label
+				tooltip = "Ammunition type to be used";	// Tooltip description
+				typeName = "NUMBER";							// Value type, can be "NUMBER", "STRING" or "BOOL"
+				defaultValue = 0;							// Default attribute value. Warning: This is an expression, and its returned value will be used (50 in this case).
+
+				// Listbox items:
+				class Values
+				{
+					class option1 { name = "40mm Flare white"; value = 0 };
+					class option2 { name = "40mm Flare red"; value = 1 };
+					class option3 { name = "40mm Flare green"; value = 2 };
+					class option4 { name = "40mm HE"; value = 3 };
+					class option5 { name = "82mm Smoke"; value = 4 };
+					class option6 { name = "82mm HE"; value = 5 };
+					class option7 { name = "155mm Smoke"; value = 6 };
+					class option8 { name = "155mm HE"; value = 7 };
+					class option9 { name = "230mm HE Rocket"; value = 8 };
+				};
+			};
+			
+			class ModuleDescription: ModuleDescription {};
+		};
+		class ModuleDescription: ModuleDescription {
+			description = "Will spawn airstrikes targetting all synched objects upon trigger activation";
+		}
+	};	
 };
 
 
