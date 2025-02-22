@@ -227,14 +227,14 @@ class CfgVehicles
 				// Listbox items:
 				class Values
 				{
-					class option1 { name = "40mm Flare white"; value = 0 };
-					class option2 { name = "40mm Flare red"; value = 1 };
-					class option3 { name = "40mm Flare green"; value = 2 };
-					class option4 { name = "40mm HE"; value = 3 };
-					class option5 { name = "82mm Smoke"; value = 4 };
-					class option6 { name = "82mm HE"; value = 5 };
-					class option7 { name = "155mm Smoke"; value = 6 };
-					class option8 { name = "155mm HE"; value = 7 };
+					class option1 { name = "40mm Flare white"; value = 0; };
+					class option2 { name = "40mm Flare red"; value = 1; };
+					class option3 { name = "40mm Flare green"; value = 2; };
+					class option4 { name = "40mm HE"; value = 3; };
+					class option5 { name = "82mm Smoke"; value = 4; };
+					class option6 { name = "82mm HE"; value = 5; };
+					class option7 { name = "155mm Smoke"; value = 6; };
+					class option8 { name = "155mm HE"; value = 7; };
 					class option9 { name = "230mm HE Rocket"; value = 8 };
 				};
 			};
