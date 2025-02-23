@@ -10,4 +10,9 @@ class AmbientAircraft
     class aaAmbient {};
     class aaAmbientDialog {};
     class aaAmbientModule {};
+
+    //random target that moves
+    class randomTargetInit {};
+    class randomTargetModule {};
+    class randomTargetUpdate {};
 };
