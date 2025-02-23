@@ -59,15 +59,14 @@ _anchor setPosASL _pos;
 	];
 	player sideChat "plane types: ";
 	player sideChat str _planes;
-	player sideChat ("timeout: " + str _timeout);
+	player sideChat ("timeout: " + str (_timeout/60) + " min");
 	player sideChat ("side: " + str _side);
-	player sideChat ("minutes left: " + str ((_stopTime - time) / 60));
-
+	player sideChat ("approx time left: " + str (ceil (((_stopTime) - time) / 60)) + " min");
 }, [_anchor], 5] call irn_fnc_zeusSelectedCallback;
 _anchor setVariable ["irn_ambPlanes_params",[
 	_classes apply {getText (configFile >> 'CfgVehicles' >> _x >> "displayName")}, 
 	_timeout,
-	time+_duration,
+	time+_duration*60,
 	_side]
 ];
 
@@ -177,6 +176,7 @@ if !(_squadronSize isEqualTypeArray (_classes apply {1})) exitWith {
 
 			//TODO attach WP to player until aircraft is closer than 2km
 		};
+		if ([_anchor] call _expired) exitWith {};
 		sleep (1+ (random [0,_timeout,2*_timeout]));
 	};
 	deleteVehicle _anchor;
