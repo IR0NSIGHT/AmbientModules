@@ -47,6 +47,30 @@ params [
 _anchor = createVehicle ["Sign_Pointer_Blue_F",[0,0,0]];	//anchor is global object, but local to zeus
 _anchor hideObjectGlobal true;
 _anchor setPosASL _pos;
+
+//ZEUS information while anchor is selected
+[_anchor, {
+	_params = _this#0 getVariable ["irn_ambPlanes_params", []];
+	_params params [
+		"_planes",
+		"_timeout",
+		"_stopTime",
+		"_side"
+	];
+	player sideChat "plane types: ";
+	player sideChat str _planes;
+	player sideChat ("timeout: " + str _timeout);
+	player sideChat ("side: " + str _side);
+	player sideChat ("minutes left: " + str ((_stopTime - time) / 60));
+
+}, [_anchor], 5] call irn_fnc_zeusSelectedCallback;
+_anchor setVariable ["irn_ambPlanes_params",[
+	_classes apply {getText (configFile >> 'CfgVehicles' >> _x >> "displayName")}, 
+	_timeout,
+	time+_duration,
+	_side]
+];
+
 {
 	[_x,[[_anchor], true]] remoteExec ["addCuratorEditableObjects",2,false];
 } forEach allCurators;
