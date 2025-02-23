@@ -34,12 +34,6 @@
 
 */
 
-{
-	if (_x isKindOf "Sign_Sphere200cm_F") then {
-		deleteVehicle _x;
-	};
-} foreach allMissionObjects "all";
-
 params [
     ["_shape",[],[[], objNull],[3]],    //posASL pls
     ["_duration",15,[-1]],
