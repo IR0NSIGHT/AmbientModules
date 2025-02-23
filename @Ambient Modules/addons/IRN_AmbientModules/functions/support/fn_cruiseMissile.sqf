@@ -111,6 +111,34 @@ _missile setVectorDirAndUp [
 _missile setVelocity [0,0,20];
 _missile setPosWorld _spawnPosASL;
 
+// spawn anchor object
+_anchor = createvehicle ["Sign_Pointer_Blue_F", _targetASL];
+_anchor setPosASL _targetASL;
+_anchor hideObjectglobal true;
+{
+    [_x, [[_anchor], true]] remoteExec ["addcuratorEditableObjects", 2, false];
+} forEach allCurators;
+
+//ZEUS information while anchor is selected
+[
+    _anchor,
+    {
+        params [
+            "_missile",
+            "_targetASL"
+        ];
+		_dist = round ((getPosASL _missile) distance2D _targetASL);
+		_dir = (_targetASL getDir (getPosASL _missile));
+        player sideChat ("cruise missile");
+        player sideChat ("distance to target: " + str _dist);
+		player sideChat ("missile incoming from " + str _dir);
+    }, 
+    [
+        _missile,
+		_targetASL
+    ],
+    5
+] remoteExec ["irn_fnc_zeusSelectedCallback", 2, false];
 
 //### go vertical into the sky until reaching 100m height
 waitUntil {
@@ -173,7 +201,7 @@ waitUntil {
 	(isNull _missile)
 };
 
-
+deletevehicle _anchor;
 
 
 
