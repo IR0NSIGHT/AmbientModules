@@ -11,9 +11,7 @@ if (_activated) then {
 	_synchronizedObjects = synchronizedObjects _logic; // Get all objects linked to the logic
 	diag_log ["Synchronized objects found: %1", _synchronizedObjects]; // Log for debugging
 	if ((count _synchronizedObjects) != 0) then {
-        [_synchronizedObjects # 0] spawn IRN_fnc_randomTargetInit;
-	} else {
-		[_logic] spawn IRN_fnc_randomTargetInit;
+		_synchronizedObjects apply {[_x] call IRN_fnc_randomTargetInit;}
 	}
 };
 true

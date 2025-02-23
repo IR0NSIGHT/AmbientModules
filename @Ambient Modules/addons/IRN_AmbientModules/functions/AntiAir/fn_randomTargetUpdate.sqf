@@ -22,22 +22,22 @@ if (missionNamespace getVariable ["DEBUG",false]) then {
 // handle state machine
 private _timeout = 0;
 private _speed = 15;
-private _zPos = 50;
+private _zPos = 150;
 switch (_state) do {
 	case 0: { // reset target position to near origin pos
 		_heading = random 360;
 		private _newPos = [];
 		if (!isNull _tank && alive _tank) then {
-			_newPos = (_tank getPos [-300, _heading]);
-			_tank doTarget _target;
+			_newPos = (_tank getPos [-150, _heading]);
+			_tank doFire _target;
 		} else {
-			_newPos = (_originPos getPos [-300, _heading]);
+			_newPos = (_originPos getPos [-150, _heading]);
 		};		
 		_target setPosATL [_newPos#0, _newPos#1,_originPos#2];
 		_timeout = 0;
 	};
 	case 1: { // advance in heading
-		_timeout = random [30,45,60];
+		_timeout = random [8,10,12];
 		_handle = [
 			{
 				_this#0 params ["_target","_speed","_heading","_zPos"];

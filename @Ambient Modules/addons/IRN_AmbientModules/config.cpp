@@ -77,6 +77,23 @@ class CfgVehicles
 		}
 	};	
 
+	class IRN_Module_RandomAATarget: IRN_ModuleBase
+	{
+		scope = 2; //editor visible
+		isGlobal = 0; //only server
+		isTriggerActivated = 0; //wait till all synched triggers are active
+
+		displayName = "Random Anti-Air Fire";
+		function = "irn_fnc_randomTargetModule";
+		class Attributes: AttributesBase //GUI to define input parameters to function
+		{
+			class ModuleDescription: ModuleDescription {};
+		};
+		class ModuleDescription: ModuleDescription {
+			description = "Each synched unit will randomly fire at an invisible target in the air. Target moves at height 150 across the unit for 10 seconds, than pauses for some time and repeats.";
+		}
+	};	
+
 	class IRN_Module_SniperAA: IRN_ModuleBase
 	{
 		scope = 2; //editor visible
