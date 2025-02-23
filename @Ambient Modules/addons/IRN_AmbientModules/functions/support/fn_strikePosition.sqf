@@ -103,6 +103,42 @@ _arr params ["_plane","_crew","_grp"];
 _plane setVelocityModelSpace [0, 100, 0]; //pushes car forward
 
 
+
+// spawn anchor object
+_anchor = createvehicle ["Sign_Pointer_Blue_F", _target];
+_anchor setPosASL _target;
+_anchor hideObjectglobal true;
+{
+    [_x, [[_anchor], true]] remoteExec ["addcuratorEditableObjects", 2, false];
+} forEach allCurators;
+
+//ZEUS information while anchor is selected
+[
+    _anchor,
+    {
+        params [
+            "_missile",
+            "_targetASL",
+			"_side",
+			"_bombs"
+        ];
+		_dist = round ((getPosASL _missile) distance2D _targetASL);
+		_dir = (_targetASL getDir (getPosASL _missile));
+        player sideChat ("airstrike by side " + str _side);
+		player sideChat ("bombs: " + str _bombs);
+        player sideChat ("distance to target: " + str _dist + "m");
+		player sideChat ("plane incoming from " + str _dir);
+    }, 
+    [
+        _plane,
+		_target,
+		_side,
+		_bombCount
+    ],
+    5
+] remoteExec ["irn_fnc_zeusSelectedCallback", 2, false];
+
+
 //make plane ignore everyone
 _grp setBehaviour "AWARE";
 _grp setCombatMode "BLUE";
@@ -144,7 +180,7 @@ _spread = 20*_flyHeight/100;
 if (_bombCount == 0) then {
 	_bombPosArr = [_target]; //right on target
 } else {
-	for "_i" from 0.5 *_bombCount to -0.5 *_bombCount step -1 do {
+	for "_i" from (0.5 *_bombCount - 1) to (-0.5 *_bombCount) step -1 do {
 		_bombPos = _target vectorAdd (_dir vectorMultiply _offset * _i);	
 		_bombPos = _bombPos vectorAdd [-0.5*_spread + random _spread,-0.5*_spread + random _spread,0]; //shift position randomly +/- 10m
 		_bombPos set [2,1 + (getTerrainHeightASL _bombPos)];
@@ -153,20 +189,9 @@ if (_bombCount == 0) then {
 };
 planetarget = _target;
 
-//mark target (debug)
-
-//for "_i" from -20 to 20 do {
-//	_h = "Sign_Sphere200cm_F" createVehicle [0,0,0];
-//	_h setPosWorld ([_i,0,0] vectorAdd (_target));
-//
-//	_h = "Sign_Sphere200cm_F" createVehicle [0,0,0];
-//	_h setPosWorld ([0,_i,0] vectorAdd (_target));
-//};
-
-
-[_plane,_flyHeight,_wp,_bombPosArr,_target,_despawnPos,_bombType] spawn {
+[_plane,_flyHeight,_wp,_bombPosArr,_target,_despawnPos,_bombType,_anchor] spawn {
 	//internal loop that will spawn the bombs once the plane is flying over the position.
-	params ["_plane","_flyHeight","_wp","_bombPosArr","_target","_despawnPos","_bombType"];
+	params ["_plane","_flyHeight","_wp","_bombPosArr","_target","_despawnPos","_bombType","_anchor"];
 	//wait until the plane is closer than 100m, then wait again until its 200m+ away again (time at which bombs would hit the ground at 150m height + 220m/s)
 	_splashSpeed = 9.81*sqrt(2*_flyHeight/9.81); _splashDir = [0,0,1];
 
@@ -219,6 +244,8 @@ planetarget = _target;
 		sleep 0.2; 
 	};
 
+	deletevehicle _anchor;
+
 	//second loop: despawn plane if close to despawn pos
 	_time = 180;
 	while {!(isNull _plane) && alive _plane} do {
@@ -230,5 +257,6 @@ planetarget = _target;
 		sleep 3;
 	};
 	_plane setVariable ["irn_bombrun",3,true]; //dead but not despawned
+
 };
 _plane //out
