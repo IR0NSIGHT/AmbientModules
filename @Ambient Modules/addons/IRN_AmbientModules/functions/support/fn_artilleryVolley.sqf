@@ -51,6 +51,28 @@ if (!isServer) exitWith {
     ["Must run on server."] call BIS_fnc_error;
 };
 
+//ZEUS information while anchor is selected
+[
+    _shapeAnchor,
+    {
+        params [
+            "_projectile",
+            "_timeout",
+            "_stopTime"
+        ];
+        player sideChat ("projectile: " + _projectile);
+        player sideChat ("average time between impacts: " + str (_timeout) + " sec");
+        player sideChat ("approx time left: " + str (ceil (((_stopTime) - time) / 60)) + " min");
+    }, 
+    [
+        _projectile, 
+        _intensity,
+        time + _duration
+    ],
+    5
+] remoteExec ["irn_fnc_zeusSelectedCallback", 2, false];
+
+
 //TODO test for params to not be nonsense 
 _stopTime = time + _duration;
 while {time < _stopTime && (_shapeAnchor isEqualType [] || {!isNull _shapeAnchor})} do {

@@ -8,9 +8,9 @@ _output params [
     "_shapetype",   //"circle" or "rect"
     "_radius",  //radius of circle
     "_rectDims",    //[x,y] dimensions of rectangle
-    "_duration",
+    "_duration",    //duration in seconds
     "_impactoffset",    //seconds between impacts
-    "_projectile",  //classname
+    "_projectile",  //[classname, isFlare]
     "_delay",   //delay to start
     "_movingDist",  //rolling barrage
     "_initialDir"   //moving direction of rolling barrage
