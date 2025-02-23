@@ -42,20 +42,25 @@ params [
 _getAllPlanes = {
 	params ["_type","_side"];
 	switch _side do {
+		case east: {_side = 0};
 		case west: {_side = 1};
-		case east: {_side = 2};
-		case independent: {_side = 3};
-		case civilian: {_side = 4};
-		default {_side = str _side};
-	};
-	if !(_type in ["Helicopter","Plane"]) exitWith {
-		["invalid type, expected 'Helicopter' or 'Plane' but received " + str _type] call BIS_fnc_error;
-		[]
+		case independent: {_side = 2};
+		case civilian: {_side = 3};
+		default {
+			diag_log ["unknown side selection:",_side];
+			_side = -1
+			};
 	};
 	if (_side == -1) exitWith {
 		["invalid side"] call BIS_fnc_error;
 		[]
 	};
+	diag_log ["find all planes for side ",_side];
+	if !(_type in ["Helicopter","Plane"]) exitWith {
+		["invalid type, expected 'Helicopter' or 'Plane' but received " + str _type] call BIS_fnc_error;
+		[]
+	};
+
 	_cond = format ["
 		(configName _x) isKindOf '%1' &&
 		 getNumber (_x >> 'scope') == 2 &&
@@ -64,19 +69,28 @@ _getAllPlanes = {
 
 	diag_log ["condition=",_cond];
 	_planes = (_cond configClasses (configFile>>"CfgVehicles"));
-
-	_planes
+	_planesUnique = [];
+	_planes apply { 
+		if (!(_x in _planesUnique)) then {
+			_planesUnique pushBack _x;
+		};
+	};
+	_planesUnique
 };
 
+// format: [displayName, configName]
+_planesNames = ([_type,_side] call _getAllPlanes) apply {[getText (configFile >> 'CfgVehicles' >> (configName _x) >> "displayName"), configName _x]};
+diag_log ["planes array:",_planesNames];
+//sort by display name
+_planesNames =[_planesNames, [], {_x#0}, "ASCEND"] call BIS_fnc_sortBy;
 
-_planes = [_type,_side] call _getAllPlanes;
-_planeClassnames = _planes apply {configName _x};
-_planeDisplayNames = _planes apply {getText (configFile >> 'CfgVehicles' >> (configName _x) >> "displayName")};
+_planeDisplayNames = _planesNames apply {_x#0};
+_planeClassnames = _planesNames apply {_x#1};
+
 
 _contentArr = [];
 {	//generate a checkbox for every existing plane
-	_class = configName _x;
-	_displayName = getText (configFile >> 'CfgVehicles' >> (configName _x) >> "displayName");
+	_displayName = _x#0;
 	_content = [
 		"TOOLBOX:YESNO",
 		_displayName,
@@ -86,7 +100,7 @@ _contentArr = [];
 		false
 	];
 	_contentArr pushBack _content;
-} forEach _planes;
+} forEach _planesNames;
 
 [
 	"AMBIENT AIRTRAFFIC",
