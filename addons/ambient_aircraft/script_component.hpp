@@ -1,6 +1,7 @@
-#define COMPONENT example_addon
-#define COMPONENT_BEAUTIFIED Example_Addon
-#include "\z\TAG\addons\main\script_mod.hpp"
+//must be equal to addon folder name
+#define COMPONENT ambient_aircraft
+#define COMPONENT_BEAUTIFIED Ambient_Aircraft
+#include "\z\IRN\addons\main\script_mod.hpp"
 
 // #define DEBUG_MODE_FULL
 // #define DISABLE_COMPILE_CACHE
@@ -12,4 +13,4 @@
     #define DEBUG_SETTINGS DEBUG_SETTINGS_EXAMPLE_ADDON
 #endif
 
-#include "\z\TAG\addons\main\script_macros.hpp"
+#include "\z\IRN\addons\main\script_macros.hpp"

@@ -1,6 +1,6 @@
-name = "Mod Name"
-prefix = "TAG"
-author = "Your Name"
+name = "Ambient Modules"
+prefix = "irn"
+author = "ir0nsight"
 mainprefix = "z"
 
 [files]
