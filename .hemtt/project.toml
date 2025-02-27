@@ -19,8 +19,9 @@ git_hash = 0 # Disabled
 
 [hemtt.launch.default]
 workshop = [
-#    "450814997", # CBA_A3's Workshop ID
-#    "463939057", # ACE3
+    "450814997", # CBA_A3's Workshop ID
+    "463939057", # ACE3
+    "1779063631", # ZEN
 ]
 
 dlc = [
@@ -30,12 +31,14 @@ optionals = [
 ]
 
 parameters = [
+    "-profiles=C:\\Users\\Max1M\\Documents\\Arma3-OtherProfiles",
     "-skipIntro",           # These parameters are passed to the Arma 3 executable
     "-noSplash",            # They do not need to be added to your list
     "-showScriptErrors",    # You can add additional parameters here
     "-debug",
     "-filePatching",
-    "-window",
+#    "-window",
+    "C:\\Users\\Max1M\\Documents\\Arma3-OtherProfiles\\Users\\IR0NSIGHT\\missions\\ambient_modules_dev_space.altis\\mission.sqm"    # load this mission to editor directly"
 ]
 
 executable = "arma3_x64"        # Default: "arma3_x64"
