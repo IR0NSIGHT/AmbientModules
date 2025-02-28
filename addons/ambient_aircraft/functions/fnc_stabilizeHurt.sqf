@@ -19,11 +19,20 @@
 *		nothing
 * 
 *	Examples: 
-*		[_this] call FUNC(stabilizeHurt
+*		
 */
 #include "script_component.hpp"
 
-params ["_dude"];
+params [    //ZEN params
+	"_pos",
+	["_dude",objNull,[objNull]]
+];
+
+if (isNull _dude) exitWith {
+	["module must be executed on a unit, was given null object."] call BIS_fnc_error
+};
+
+
 [_dude] spawn { 
     params ["_dude"]; 
     [player, _dude] call ace_medical_treatment_fnc_fullHeal; 

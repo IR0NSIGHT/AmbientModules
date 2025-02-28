@@ -149,7 +149,7 @@ while {alive _unit} do {
 	_isHybrid = 1 == (_unit getVariable [_modeVarName,0]); //ambient for 1km+, deadly for <1km
 	_heloOld = _helo;
 	_helo = [_unit, _helo,_timeStampHelo,_detectionRange] call _getHelo;
-	if !(_helo isEqualTo _heloOld) then {
+	if (_helo isNotEqualTo _heloOld) then {
 		_timeStampHelo = time;
 	};
 	if (isNull _helo) then {

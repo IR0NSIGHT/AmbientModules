@@ -23,7 +23,7 @@
 
 params ["_shape"];
 _shape params ["_type","_anchor","_sides"];
-if !(_type isEqualTo "rect") exitWith {
+if (_type isNotEqualTo "rect") exitWith {
 	["wrong shape type:",_type] call BIS_fnc_error;
 };
 //get basis of object

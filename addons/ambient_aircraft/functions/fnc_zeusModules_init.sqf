@@ -63,8 +63,8 @@
 
 //stabilize hurt
 [
-	"Stabilize patient",
 	"Medical",
+	"Stabilize patient",
 	FUNC(stabilizeHurt),
 	""
 ] call zen_custom_modules_fnc_register;
