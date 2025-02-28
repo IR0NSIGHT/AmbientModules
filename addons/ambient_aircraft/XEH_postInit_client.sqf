@@ -2,3 +2,4 @@
 // only executed on client
 
 call FUNC(printAddonName);
+call FUNC(zeusModules_init);
