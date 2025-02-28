@@ -16,7 +16,7 @@
 *		base matrix 3x3 (forward, right, up)
 * 
 *	Examples: 
-*		[player] call irn_fnc_getObjectBasis
+*		[player] callFUNC(getObjectBasis
 */
 params [
 	["_obj",objNull,[objNull]]

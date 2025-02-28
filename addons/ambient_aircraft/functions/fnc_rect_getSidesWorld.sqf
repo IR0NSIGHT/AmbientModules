@@ -29,7 +29,7 @@ if !(_type isEqualTo "rect") exitWith {
 _basis = [[1,0,0],[0,1,0],[0,0,1]];
 _out = [];
 if (_anchor isEqualType objNull) then {
-	_basis = [_anchor] call irn_fnc_getObjectBasis;
+	_basis = [_anchor] call FUNC(getObjectBasis);
 	_anchor = getPosASL _anchor;
 
 	//get coordinate vectors as spaltenvector

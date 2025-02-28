@@ -24,10 +24,10 @@
 * 
 *	Examples: 
 *		_shape = ["rect",[player,[5,0,0],[0,7,0]]];	//koordinaten vektoren in der Basis des players: forward, right, up
-*		[player,_shape,25] call irn_fnc_outLineShape;
+*		[player,_shape,25] callFUNC(outLineShape);
 *
 *		_shape = ["circle",getPosWorld player,[50]];
-*		[player,_shape,25] call irn_fnc_outLineShape;
+*		[player,_shape,25] callFUNC(outLineShape);
 */
 
 params [
@@ -38,7 +38,7 @@ params [
 	["_deleteOnAnchorDeath",false,[true]]
 ];
 
-if (isNull _motherObj || {_shape isEqualTo []} || {!([_shape] call irn_fnc_isShape)}) exitWith {
+if (isNull _motherObj || {_shape isEqualTo []} || {!([_shape] callFUNC(isShape)}) exitWith {
 	["invalid input"] call BIS_fnc_error;
 };
 
@@ -75,7 +75,7 @@ switch _type do {
 		if (_anchorPoint isEqualType objNull) then {
 			_anchorPoint = getPosASL _anchorPoint;
 		};
-		_sidesWorld = ([_shape] call irn_fnc_rect_getSidesWorld);
+		_sidesWorld = ([_shape] callFUNC(rect_getSidesWorld);
 		_sidesWorld params ["_side01","_side02"];
 		{
 			_amountHelper = ceil((vectorMagnitude (_x#0))/_helperOffset);

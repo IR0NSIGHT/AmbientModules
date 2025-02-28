@@ -19,7 +19,7 @@
 *		nothing
 * 
 *	Examples: 
-*		[_this] call irn_fnc_stabilizeHurt
+*		[_this] callFUNC(stabilizeHurt
 */
 params ["_dude"];
 [_dude] spawn { 

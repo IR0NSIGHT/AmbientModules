@@ -1,7 +1,7 @@
 /**
 
 	[player, { player sideChat "hello world" },[], 3] call irn_ambient_aircraft_fnc_zeusSelectedCallback
-	[this, { _this#0 sideChat "hello world" }, [player], 3] call irn_fnc_zeusSelectedCallback
+	[this, { _this#0 sideChat "hello world" }, [player], 3] callFUNC(zeusSelectedCallback
 	TODO add docu for function
  */
 

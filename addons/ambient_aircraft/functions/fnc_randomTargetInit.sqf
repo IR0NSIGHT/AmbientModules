@@ -29,4 +29,4 @@ _tank addEventHandler ["Killed", {
     params ["_unit", "_killer", "_instigator", "_useEffects"];
     deleteVehicle (_unit getVariable ["irn_aa_target",objNull]);
 }];
-[_target,[_tank]] call irn_fnc_randomTargetUpdate;
+[_target,[_tank]] call FUNC(randomTargetUpdate);

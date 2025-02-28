@@ -30,7 +30,7 @@
 		none
 
 	Examples:
-		[getPosWorld player, 500, 60] spawn irn_fnc_artilleryVolley;
+		[getPosWorld player, 500, 60] spawn FUNC(artilleryVolley);
 
 */
 
@@ -70,13 +70,13 @@ if (!isServer) exitWith {
         time + _duration
     ],
     5
-] remoteExec ["irn_fnc_zeusSelectedCallback", 2, false];
+] remoteExec ["FUNC(zeusSelectedCallback", 2, false];
 
 
 //TODO test for params to not be nonsense 
 _stopTime = time + _duration;
 while {time < _stopTime && (_shapeAnchor isEqualType [] || {!isNull _shapeAnchor})} do {
-    _rndPos = [_shape] call irn_fnc_getRndPointInShape;
+    _rndPos = [_shape] call FUNC(getRndPointInShape);
     _pos = _rndPos vectorAdd [0,0,(1+random 0.5)*_spawnHeight];
     //spawn projectile
     private ["_proj"];

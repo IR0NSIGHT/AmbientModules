@@ -30,7 +30,7 @@ if (_activated) then {
         _spawnPos = _spawnPos vectorAdd [random 500, random 200, 200 + random 500];
         _dir = (getPosASL _x) getDir _spawnPos;
         [_x, _planeClass, nil, _bombcount,
-        _altitude, _dir, _side, _spawnPos, _spawnPos] spawn irn_fnc_strikeposition;
+        _altitude, _dir, _side, _spawnPos, _spawnPos] spawn FUNC(strikeposition);
         
         diag_log ["activate airstrike from module for: ",
             _logic, " with params:", [_x, _planeClass, nil, _bombcount,

@@ -31,7 +31,7 @@ _y = 0;
 			_side,
 			(_from vectorAdd [100*_y,0,0]),   
 			(_to vectorAdd [100*_y,0,0]) 
-		] spawn irn_fnc_strikePosition;
+		] spawn FUNC(strikePosition);
 		_y = _y + 1;
 	};
 } forEach (_positions)

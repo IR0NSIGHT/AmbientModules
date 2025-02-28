@@ -79,6 +79,3 @@ _contentArr = [];
 	{},	//cancel
 	[_classes,_pos,_timeout,_side,_duration]	//args
 ] call zen_dialog_fnc_create;
-
-
-//[300,["C_Plane_Civil_01_F","B_T_VTOL_01_vehicle_F"],[2.56662,4.33053],GUER,30,[3450.23,3807.5,0.00151062]] spawn irn_fnc_ambientAirtraffic;

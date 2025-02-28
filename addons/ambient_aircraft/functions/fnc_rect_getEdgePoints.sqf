@@ -23,7 +23,7 @@ _shape params ["_type","_anchor","_sides"];
 if (_anchor isEqualType objNull) then {
 	_anchor = getPosASL _anchor;
 };
-_sides = [_shape] call irn_fnc_rect_getSidesWorld;
+_sides = [_shape] callFUNC(rect_getSidesWorld;
 _sides params ["_side1World","_side2World"];
 _out = [_anchor,_anchor vectorAdd _side1World,_anchor vectorAdd _side2World,_anchor vectorAdd _side1World vectorAdd _side2World];
 _out

@@ -138,7 +138,7 @@ _anchor hideObjectglobal true;
 		_targetASL
     ],
     5
-] remoteExec ["irn_fnc_zeusSelectedCallback", 2, false];
+] remoteExec [QFUNC(zeusSelectedCallback), 2, false];
 
 //### go vertical into the sky until reaching 100m height
 waitUntil {

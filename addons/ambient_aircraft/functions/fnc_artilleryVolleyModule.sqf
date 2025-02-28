@@ -45,6 +45,6 @@ if (_activated) then {
     _args = [getPosASL _logic];
     
     // organize airstrike on synched objects
-    [_output, _args] call irn_fnc_artilleryInitializer;
+    [_output, _args] call FUNC(artilleryInitializer);
 };
 true

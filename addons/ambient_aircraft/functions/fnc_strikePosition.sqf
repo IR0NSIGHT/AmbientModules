@@ -136,7 +136,7 @@ _anchor hideObjectglobal true;
 		_bombCount
     ],
     5
-] remoteExec ["irn_fnc_zeusSelectedCallback", 2, false];
+] remoteExec [QFUNC(zeusSelectedCallback), 2, false];
 
 
 //make plane ignore everyone

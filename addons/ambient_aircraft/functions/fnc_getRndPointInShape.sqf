@@ -40,7 +40,7 @@ switch _type do {
 		_randPos = _anchorPoint vectorAdd _dir;
 	};
 	case "rect": {  //doesnt have to be reactuangular, but needs to have 2 sides.
-		_sidesWorld = [_shape] call irn_fnc_rect_getSidesWorld;
+		_sidesWorld = [_shape] callFUNC(rect_getSidesWorld;
 		diag_log ["sidesWorld of shape =",_sidesWorld];
 		_sidesWorld params ["_side01","_side02"];
 		_aVal = random 1;

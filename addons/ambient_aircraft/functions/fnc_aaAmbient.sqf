@@ -16,8 +16,8 @@
 		nothing
 
 	Examples:
-		[myAAGun, -1, 3000] spawn IRN_fnc_aaAmbient;	//pure ambient AA that shoots at anything within 3 kms
-		[myGunTruck, 1500,3000]  spawn IRN_fnc_aaAmbient; //AA will shoot ambient at anything within 3kms and kill anything within 1.5 kms
+		[myAAGun, -1, 3000] spawn FUNC(aaAmbient);	//pure ambient AA that shoots at anything within 3 kms
+		[myGunTruck, 1500,3000]  spawn FUNC(aaAmbient); //AA will shoot ambient at anything within 3kms and kill anything within 1.5 kms
 
 		//outside control of object:
 		myAAGun setVariable ["irn_amb_aa_mode", 0]	//set AA gun to ambient while its running already

@@ -128,7 +128,7 @@ _content = [
 _onConfirm = {	//LOCAL TO ZEUS PLAYER
 	params ["_output", "_args"];
 	_output pushBack 0;	//initial direction of rolling barrage
-	[_output, _args] call irn_fnc_artilleryInitializer;
+	[_output, _args] call FUNC(artilleryInitializer);
 };
 
 _onCancel = {};
