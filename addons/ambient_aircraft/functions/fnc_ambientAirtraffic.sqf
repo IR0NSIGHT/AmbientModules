@@ -23,7 +23,7 @@
 *			"irn_amb_planes_squadronSize"
 *
 *	Examples:
-*		[30, ["B_Heli_Transport_03_unarmed_F"],[1],[3],west,10,[0,0,0]] spawn FUNC(ambPlanes;
+*		[30, ["B_Heli_Transport_03_unarmed_F"],[1],[3],west,10,[0,0,0]] spawn FUNC(ambPlanes);
 *		
 */
 #include "script_component.hpp"

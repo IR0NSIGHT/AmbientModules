@@ -23,8 +23,8 @@
 *		nothing
 * 
 *	Examples: 
-*		[targetTruck_01] spawn FUNC(cruiseMissile;
-*		[[0,800,2222],missile_boat_01] spawn FUNC(cruiseMissile;
+*		[targetTruck_01] spawn FUNC(cruiseMissile);
+*		[[0,800,2222],missile_boat_01] spawn FUNC(cruiseMissile);
 */
 
 //############### cruise missile

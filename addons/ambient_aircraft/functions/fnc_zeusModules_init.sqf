@@ -60,3 +60,11 @@
 	FUNC(aaAmbientDialog),
 	""
 ] call zen_custom_modules_fnc_register;
+
+//stabilize hurt
+[
+	"Stabilize patient",
+	"Medical",
+	FUNC(stabilizeHurt),
+	""
+] call zen_custom_modules_fnc_register;

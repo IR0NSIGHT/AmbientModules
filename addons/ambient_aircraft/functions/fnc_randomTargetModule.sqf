@@ -13,7 +13,7 @@ if (_activated) then {
 	_synchronizedObjects = synchronizedObjects _logic; // Get all objects linked to the logic
 	diag_log ["Synchronized objects found: %1", _synchronizedObjects]; // Log for debugging
 	if ((count _synchronizedObjects) != 0) then {
-		_synchronizedObjects apply {[_x] call FUNC(randomTargetInit;}
+		_synchronizedObjects apply {[_x] call FUNC(randomTargetInit);}
 	}
 };
 true

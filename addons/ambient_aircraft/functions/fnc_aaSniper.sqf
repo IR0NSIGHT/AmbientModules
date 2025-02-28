@@ -11,7 +11,7 @@
 		nothing
 
 	Examples:
-		[myHMG] call FUNC(aaSniper;
+		[myHMG] call FUNC(aaSniper);
 */
 #include "script_component.hpp"
 
