@@ -38,7 +38,7 @@ parameters = [
     "-showScriptErrors",    # You can add additional parameters here
     "-debug",
     "-filePatching",
-#    "-window",
+    "-window",
     "C:\\Users\\Max1M\\Documents\\Arma3-OtherProfiles\\Users\\IR0NSIGHT\\missions\\ambient_modules_dev_space.altis\\mission.sqm"    # load this mission to editor directly"
 ]
 
