@@ -32,19 +32,16 @@ if (isNull _dude) exitWith {
 	["module must be executed on a unit, was given null object."] call BIS_fnc_error
 };
 
-
-[_dude] spawn { 
-    params ["_dude"]; 
-    [player, _dude] call ace_medical_treatment_fnc_fullHeal; 
-	[_dude, true] call ace_medical_fnc_setUnconscious;
-    sleep 0.5; 
+[player, _dude] call ace_medical_treatment_fnc_fullHeal; 
+[_dude, true] call ace_medical_fnc_setUnconscious;
+[{  //dont remember why, but damage dealing must be delayed a bit to take effect.
     for "_i" from 0 to 5 do { 
-        [_dude, [[1, selectRandom[
-            "Body",
-            "Head",
-            "LeftArm",
-            "RightArm",
-            "LeftLeg",
-            "RightLeg"], 1]], "bullet"] remoteExecCall ["ace_medical_damage_fnc_woundsHandlerBase"]; 
-    }; 
-}
+    [_this, [[1, selectRandom[
+        "Body",
+        "Head",
+        "LeftArm",
+        "RightArm",
+        "LeftLeg",
+        "RightLeg"], 1]], "bullet"] remoteExecCall ["ace_medical_damage_fnc_woundsHandlerBase"]; 
+}; 
+}, _dude] call CBA_fnc_execNextFrame;
