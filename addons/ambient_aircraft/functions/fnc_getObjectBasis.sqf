@@ -16,8 +16,10 @@
 *		base matrix 3x3 (forward, right, up)
 * 
 *	Examples: 
-*		[player] callFUNC(getObjectBasis
+*		[player] call FUNC(getObjectBasis
 */
+#include "script_component.hpp"
+
 params [
 	["_obj",objNull,[objNull]]
 ];

@@ -23,6 +23,8 @@
 		myAAGun setVariable ["irn_amb_aa_mode", 0]	//set AA gun to ambient while its running already
 		myAAGun setVariable ["irn_amb_aa_mode", 1]	//set AA gun to "dual mode" where it uses lethal range
 */
+#include "script_component.hpp"
+
 params [
 	["_unit", objNull, [objNull]],
 	["_lethalRange",-1,[420]],	//will kill anything closer than that range. -1 to be pure ambient

@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 params [
 	"_positions",
 	["_planeCount",1,[0]],

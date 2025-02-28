@@ -18,8 +18,9 @@
 *	Examples: 
 *		[
 			["rect",anchor_01,[[100,100,0],[100,-200]]]
-		] call IRN_fnc_getRndPointInShape
+		] call FUNC(getRndPointInShape
 */
+#include "script_component.hpp"
 
 params ["_shape"];
 _shape params ["_type","_anchorPoint","_shapeParams"];
@@ -40,7 +41,7 @@ switch _type do {
 		_randPos = _anchorPoint vectorAdd _dir;
 	};
 	case "rect": {  //doesnt have to be reactuangular, but needs to have 2 sides.
-		_sidesWorld = [_shape] callFUNC(rect_getSidesWorld;
+		_sidesWorld = [_shape] call FUNC(rect_getSidesWorld);
 		diag_log ["sidesWorld of shape =",_sidesWorld];
 		_sidesWorld params ["_side01","_side02"];
 		_aVal = random 1;

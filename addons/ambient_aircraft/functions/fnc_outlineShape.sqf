@@ -24,11 +24,12 @@
 * 
 *	Examples: 
 *		_shape = ["rect",[player,[5,0,0],[0,7,0]]];	//koordinaten vektoren in der Basis des players: forward, right, up
-*		[player,_shape,25] callFUNC(outLineShape);
+*		[player,_shape,25] call FUNC(outLineShape);
 *
 *		_shape = ["circle",getPosWorld player,[50]];
-*		[player,_shape,25] callFUNC(outLineShape);
+*		[player,_shape,25] call FUNC(outLineShape);
 */
+#include "script_component.hpp"
 
 params [
 	["_motherObj",objNull,[objNull]],
@@ -38,13 +39,13 @@ params [
 	["_deleteOnAnchorDeath",false,[true]]
 ];
 
-if (isNull _motherObj || {_shape isEqualTo []} || {!([_shape] callFUNC(isShape)}) exitWith {
+if (isNull _motherObj || {_shape isEqualTo []} || {!([_shape] call FUNC(isShape))}) exitWith {
 	["invalid input"] call BIS_fnc_error;
 };
 
 {
 	deleteVehicle _x;
-} foreach attachedObjects _motherObj;
+} forEach attachedObjects _motherObj;
 _outlineHelpers = [];
 
 //spawn directional red arrow
@@ -75,7 +76,7 @@ switch _type do {
 		if (_anchorPoint isEqualType objNull) then {
 			_anchorPoint = getPosASL _anchorPoint;
 		};
-		_sidesWorld = ([_shape] callFUNC(rect_getSidesWorld);
+		_sidesWorld = ([_shape] call FUNC(rect_getSidesWorld));
 		_sidesWorld params ["_side01","_side02"];
 		{
 			_amountHelper = ceil((vectorMagnitude (_x#0))/_helperOffset);

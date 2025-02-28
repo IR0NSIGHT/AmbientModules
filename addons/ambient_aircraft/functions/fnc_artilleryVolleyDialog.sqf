@@ -16,8 +16,9 @@
 *		none
 * 
 *	Examples: 
-*		[getPosWorld player] call IRN_fnc_artilleryVolleyDialog
+*		[getPosWorld player] call FUNC(artilleryVolleyDialog
 */
+#include "script_component.hpp"
 
 params ["_pos"];
 //See ZEN framework for documentation https://zen-mod.github.io/ZEN/#/frameworks/dynamic_dialog

@@ -28,7 +28,7 @@
 *		nassing
 * 
 *	Examples: 
-*		[] call IRN_fnc_someFunction 
+*		[] call FUNC(someFunction 
 */
 #include "script_component.hpp"
 

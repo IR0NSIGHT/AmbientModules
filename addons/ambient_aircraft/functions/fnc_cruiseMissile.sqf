@@ -23,12 +23,13 @@
 *		nothing
 * 
 *	Examples: 
-*		[targetTruck_01] spawn IRN_fnc_cruiseMissile;
-*		[[0,800,2222],missile_boat_01] spawn IRN_fnc_cruiseMissile;
+*		[targetTruck_01] spawn FUNC(cruiseMissile;
+*		[[0,800,2222],missile_boat_01] spawn FUNC(cruiseMissile;
 */
 
 //############### cruise missile
 //###### helper functions
+#include "script_component.hpp"
 
 //rotate missile towards this posASL
 _fn_headTowards = {
@@ -112,9 +113,9 @@ _missile setVelocity [0,0,20];
 _missile setPosWorld _spawnPosASL;
 
 // spawn anchor object
-_anchor = createvehicle ["Sign_Pointer_Blue_F", _targetASL];
+_anchor = createVehicle ["Sign_Pointer_Blue_F", _targetASL];
 _anchor setPosASL _targetASL;
-_anchor hideObjectglobal true;
+_anchor hideObjectGlobal true;
 {
     [_x, [[_anchor], true]] remoteExec ["addcuratorEditableObjects", 2, false];
 } forEach allCurators;
@@ -161,7 +162,7 @@ waitUntil {
 	_missilePosASL = getPosWorld _missile;
 	_missile setVectorUp surfaceNormal _missilePosASL;
 	_dir = (_missilePosASL vectorFromTo _targetASL);
-	_distanceToTarget = _missilePosASL distance2d _targetASL;
+	_distanceToTarget = _missilePosASL distance2D _targetASL;
 	_wpOffset = 200 min _altitude*4;
 	//calculate next wp
 	_nextWP = (getPosWorld _missile) vectorAdd (_dir vectorMultiply (_wpOffset min _distanceToTarget));
@@ -201,7 +202,7 @@ waitUntil {
 	(isNull _missile)
 };
 
-deletevehicle _anchor;
+deleteVehicle _anchor;
 
 
 

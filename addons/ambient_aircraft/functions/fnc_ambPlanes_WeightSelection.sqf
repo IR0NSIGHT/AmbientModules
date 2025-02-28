@@ -27,7 +27,7 @@
 * 
 *	Examples: 
 *		_params = [_classes,_pos,_timeout,_side,_duration];
-*		_params call IRN_fnc_ambPlanes_WeightSelection;
+*		_params call FUNC(ambPlanes_WeightSelection;
 */
 #include "script_component.hpp"
 

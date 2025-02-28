@@ -33,6 +33,7 @@
 		[getPosWorld player, 500, 60] spawn FUNC(artilleryVolley);
 
 */
+#include "script_component.hpp"
 
 params [
     ["_shape",[],[[], objNull],[3]],    //posASL pls

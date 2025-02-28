@@ -16,7 +16,7 @@
 *		none
 * 
 *	Examples: 
-*		[] call IRN_fnc_zeusModules
+*		[] call FUNC(zeusModules
 */
 #include "script_component.hpp"
 

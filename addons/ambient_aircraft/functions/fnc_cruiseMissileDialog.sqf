@@ -22,11 +22,12 @@
 *		nothing
 * 
 *	Examples: 
-*		[targetTruck_01] spawn IRN_fnc_cruiseMissile;
-*		[[0,800,2222],missile_boat_01] spawn IRN_fnc_cruiseMissile;
+*		[targetTruck_01] spawn FUNC(cruiseMissile;
+*		[[0,800,2222],missile_boat_01] spawn FUNC(cruiseMissile;
 */
 // TO BE DONE
 	//while {((getPosATL _boat)#2 > -20)} do {
+#include "script_component.hpp"
 
 params ["_pos"];
 [
@@ -65,7 +66,7 @@ params ["_pos"];
 		//execute function
 		_params = [_pos,_spawnPos,_altitude];
 		//_params execVM "fn_cruiseMissile.sqf";
-		_params remoteExec ["IRN_fnc_cruiseMissile",2];
+		_params remoteExec [QFUNC(cruiseMissile),2];
 	},	//accept
 	{},
 	[_pos]

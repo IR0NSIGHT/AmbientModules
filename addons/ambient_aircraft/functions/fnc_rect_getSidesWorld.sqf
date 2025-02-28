@@ -17,8 +17,9 @@
 *		array of worldvectors: [worldSide1,worldSide2]
 * 
 *	Examples: 
-*		["rect",player",[[10,10,0],[10,-10,0]]] call IRN_fnc_rect_getEdges
+*		["rect",player",[[10,10,0],[10,-10,0]]] call FUNC(rect_getEdges
 */
+#include "script_component.hpp"
 
 params ["_shape"];
 _shape params ["_type","_anchor","_sides"];

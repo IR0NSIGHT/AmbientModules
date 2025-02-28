@@ -37,9 +37,9 @@
 *		plane
 * 
 *	Examples: 
-*		[getPosWorld player] call IRN_fnc_strikePosition
+*		[getPosWorld player] call FUNC(strikePosition
 */
-
+#include "script_component.hpp"
 
 params [
 	["_target",[],[[],objNull,""],3],										//targetpos (ASL) to bomb, or object or marker
@@ -105,9 +105,9 @@ _plane setVelocityModelSpace [0, 100, 0]; //pushes car forward
 
 
 // spawn anchor object
-_anchor = createvehicle ["Sign_Pointer_Blue_F", _target];
+_anchor = createVehicle ["Sign_Pointer_Blue_F", _target];
 _anchor setPosASL _target;
-_anchor hideObjectglobal true;
+_anchor hideObjectGlobal true;
 {
     [_x, [[_anchor], true]] remoteExec ["addcuratorEditableObjects", 2, false];
 } forEach allCurators;
@@ -244,7 +244,7 @@ planetarget = _target;
 		sleep 0.2; 
 	};
 
-	deletevehicle _anchor;
+	deleteVehicle _anchor;
 
 	//second loop: despawn plane if close to despawn pos
 	_time = 180;

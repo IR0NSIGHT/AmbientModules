@@ -1,4 +1,4 @@
-
+#include "script_component.hpp"
 
 if (!isServer) exitWith {};
 params [
@@ -73,6 +73,6 @@ _targetState = [
 	_originPos,
 	_state
 ];
-[irn_fnc_randomTargetUpdate, [_target,_targetState], _timeout] call CBA_fnc_waitAndExecute;
+[FUNC(randomTargetUpdate), [_target,_targetState], _timeout] call CBA_fnc_waitAndExecute;
 
 

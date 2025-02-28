@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 _logic = param [0, objNull, [objNull]];
 _units = param [1, [], [[]]];
 _activated = param [2, true, [true]];

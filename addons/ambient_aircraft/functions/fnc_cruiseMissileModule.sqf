@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 _logic = param [0, objNull, [objNull]];
 _units = param [1, [], [[]]];
 _activated = param [2, true, [true]];
@@ -7,10 +9,10 @@ if (_activated) then {
 
     if (count _units != 0) then {
         {
-           [_logic, _x, _altitude] spawn IRN_fnc_cruiseMissile;
+           [_logic, _x, _altitude] spawn FUNC(cruiseMissile);
         } forEach _units
     } else {
-        [_logic, nil, _altitude] spawn IRN_fnc_cruiseMissile;
+        [_logic, nil, _altitude] spawn FUNC(cruiseMissile);
     };
     diag_log ["activate cruise missile from module for: ", _logic, " with params:",[getPosASL _logic, "?spawnpos?", _altitude]];
 };

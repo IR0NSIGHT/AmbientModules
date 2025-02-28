@@ -26,8 +26,9 @@
 *		<return type> 
 * 
 *	Examples: 
-*		[] call IRN_fnc_someFunction 
+*		[] call FUNC(someFunction 
 */
+#include "script_component.hpp"
 
 params [
 	"_pos",
@@ -62,7 +63,7 @@ if (isNull _obj) exitWith {
 		
 		//execute function
 		_params = [_obj,_lethalRange, _detectionRange];
-		_params remoteExec ["IRN_fnc_aaAmbient",2];
+		_params remoteExec [QFUNC(aaAmbient),2];
 	},	//accept
 	{},
 	[_pos,_obj]

@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 if (!isServer) exitWith {};
 params[
     ["_tank",objNull,[objNull]]
@@ -17,9 +19,9 @@ _pos = _pos getPos [random 25, random 360];
 _target setPosATL [_pos#0,_pos#1,50];
 
 //add this target to global targets array
-_targets = missionnamespace getVariable ["irn_aa_targets", []] select { alive _x };
-_targets pushback _target;
-missionnamespace setVariable ["irn_aa_targets", _targets];
+_targets = missionNamespace getVariable ["irn_aa_targets", []] select { alive _x };
+_targets pushBack _target;
+missionNamespace setVariable ["irn_aa_targets", _targets];
 
 _tank reveal [_target, 4];
 _tank synchronizeObjectsAdd [_target];

@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 _parse = params [
 	["_shape",[],[[]],[3]]
 ];

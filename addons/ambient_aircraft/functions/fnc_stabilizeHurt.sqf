@@ -19,8 +19,10 @@
 *		nothing
 * 
 *	Examples: 
-*		[_this] callFUNC(stabilizeHurt
+*		[_this] call FUNC(stabilizeHurt
 */
+#include "script_component.hpp"
+
 params ["_dude"];
 [_dude] spawn { 
     params ["_dude"]; 

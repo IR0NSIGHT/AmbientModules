@@ -11,8 +11,10 @@
 		nothing
 
 	Examples:
-		[myHMG] call IRN_fnc_aaSniper;
+		[myHMG] call FUNC(aaSniper;
 */
+#include "script_component.hpp"
+
 if (!canSuspend) exitWith {
 	 ["Function can not be called in unsuspendable context. Use 'spawn' instead"] call BIS_fnc_error;
 };
@@ -23,7 +25,7 @@ if (isNull _unit) exitWith {
 };
 _run = true;
 _controlVar = "IRN_aaSniper_on";
-_radiusVar = "IRN_fnc_aaSniper";
+_radiusVar = "IRN_aaSniper";
 _unit setVariable [_controlVar,true, true]; //control var
 _unit setVariable [_radiusVar,2000, true];
 _slep = 4;

@@ -16,14 +16,16 @@
 *		array of edgepoints in format [anchor,anchor+s1,anchor+s2,anchor+s1+s2]
 * 
 *	Examples: 
-*		["rect",player",[[10,10,0],[10,-10,0]]] call IRN_fnc_rect_getEdges
+*		["rect",player",[[10,10,0],[10,-10,0]]] call FUNC(rect_getEdges
 */
+#include "script_component.hpp"
+
 params ["_shape"];
 _shape params ["_type","_anchor","_sides"];
 if (_anchor isEqualType objNull) then {
 	_anchor = getPosASL _anchor;
 };
-_sides = [_shape] callFUNC(rect_getSidesWorld;
+_sides = [_shape] call FUNC(rect_getSidesWorld);
 _sides params ["_side1World","_side2World"];
 _out = [_anchor,_anchor vectorAdd _side1World,_anchor vectorAdd _side2World,_anchor vectorAdd _side1World vectorAdd _side2World];
 _out
