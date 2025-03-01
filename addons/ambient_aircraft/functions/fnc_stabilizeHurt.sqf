@@ -36,7 +36,7 @@ if (isNull _dude) exitWith {
 [_dude, true] call ace_medical_fnc_setUnconscious;
 [{  //dont remember why, but damage dealing must be delayed a bit to take effect.
     _dude = _this;
-    _count = if (isPlayer _dude) then { 5 } else { 3 };
+    _count = [3, 5] select (isPlayer _dude);
     for "_i" from 0 to _count do { 
         [
             _dude,

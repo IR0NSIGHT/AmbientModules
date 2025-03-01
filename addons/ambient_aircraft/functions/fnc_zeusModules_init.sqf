@@ -4,8 +4,7 @@
 *	@Last Modified time: 2022-06-03 17:39:46 
 *	 
 *	Description: 
-*		initializes the ZEN-based zeus modules:
-*		single airstrike, artillery barrage
+*		initializes the ZEN-based zeus modules
 * 
 *	Environment: 
 *		SERVER, SUSPENDABLE 
@@ -16,7 +15,7 @@
 *		none
 * 
 *	Examples: 
-*		[] call FUNC(zeusModules
+*		[] call FUNC(zeusModules_init)
 */
 #include "script_component.hpp"
 
@@ -33,7 +32,7 @@
 	"Fire Support",
 	"Artillery Barrage", 
 	FUNC(artilleryVolleyDialog),
-	"IRN_AmbientModules\images\icon_arty_3.paa"	
+	QPATHTOF(images\icon_arty_3.paa)	//use macro to get full path to image here?
 ]  call zen_custom_modules_fnc_register;
 
 //cruise missile zeus module
@@ -41,7 +40,7 @@
 	"Fire Support",
 	"Cruise Missile Strike",
 	FUNC(cruiseMissileDialog),
-	"IRN_AmbientModules\images\icon_cruise_missile.paa"	
+	QPATHTOF(images\icon_cruise_missile.paa)	
 ] call zen_custom_modules_fnc_register;
 
 //cruise missile zeus module
@@ -49,7 +48,7 @@
 	"AI",
 	"Ambient Airtraffic",
 	FUNC(ambPlanes_ParamSelection),
-	"IRN_AmbientModules\images\icon_airtraffic.paa"	
+	QPATHTOF(images\icon_airtraffic.paa)
 ] call zen_custom_modules_fnc_register;
 
 

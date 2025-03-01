@@ -11,6 +11,7 @@ include = [
 
 exclude = [
     "*.png", # explicitly excluding image source files from build, but not repository
+    "*.xcf"
 ]
 
 [version]
