@@ -147,6 +147,7 @@ _missile setVariable ["STATE","UP"];
 _handle = [{
     params ["_args", "_handle"];
 	_args params ["_missile","_targetASL","_altitude","_fn_getTerrainHeight","_fn_headTowards"];
+
 	_missilePos = getPosWorld _missile;
 	_dir = (vectorNormalized(_missilePos vectorFromTo _targetASL)) vectorMultiply 10;
 	_nextWP = _dir vectorAdd  _missilePos;
@@ -163,10 +164,14 @@ _handle = [{
 waitUntil {
 	_missile getVariable ["STATE","UP"] isEqualTo "TARGET";
 };
-//### follow terrain at z=200 otowards target, arch at target if under 500m
-_timeout = 0.4;
-waitUntil {
-	sleep _timeout;
+
+//HELPER = createVehicle ["Sign_Sphere200cm_F",_targetASL];	//debug helper sphere
+
+//### follow terrain at altitude otowards target, arch at target if under 500m
+[{
+	params ["_args", "_handle"];
+	_args params ["_missile","_targetASL","_altitude","_fn_getTerrainHeight","_fn_headTowards"];
+
 	//fly towards a point 100m towards the target, always at 200m above ground
 	_missilePosASL = getPosWorld _missile;
 	_missile setVectorUp surfaceNormal _missilePosASL;
@@ -175,43 +180,45 @@ waitUntil {
 	_wpOffset = 200 min _altitude*4;
 	//calculate next wp
 	_nextWP = (getPosWorld _missile) vectorAdd (_dir vectorMultiply (_wpOffset min _distanceToTarget));
-	_d = _distanceToTarget;
+	_distanceToTarget;
 	_height = _altitude;
 
+	//MODULATE ALTITUDE 
 	if (_altitude > 200) then {	//no terrain skimming execpt if necessary
 		_height = _altitude max (([_nextWP] call _fn_getTerrainHeight) + 50);
 	} else {
 		_height = ([_nextWP] call _fn_getTerrainHeight) + _altitude;
-		if (surfaceIsWater _nextWP) then {	//fly higher right before going into dive onto target. otherwise might hit ground to early (waves)
+		if (surfaceIsWater _nextWP) then {	//fly higher right before going into dive onto target. otherwise might hit ground to early (waves or hills)
 			_height = _altitude/3 max 20;
 		};	
 	};
-	if (_d < 600) then {
-		_height = _height max 75;
+
+	if (_distanceToTarget < 600) then {	//arch upwards near target
+		_height = _height max 150;
 	};
 	_nextWP set [2,_height];
 	_dMax = 400 max (_altitude min 1000);
-	if (_d < _dMax) then {
-		break;	//direkt attack mode
+	if (_distanceToTarget < _dMax) then { //arch downwards directly at target
+		_nextWP = _targetASL;
 	};
 	//debug helper sphere, set to WP
-	//_h = createVehicle ["Sign_Sphere200cm_F",_targetASL];	//debug helper sphere
-	//_h setPosWorld _nextWP;
-	//_hs pushBack _h;
+	//HELPER setPosWorld _nextWP;
+
 
 	//home towards next wp
 	[_missile, _nextWP] call _fn_headTowards;
 
-	(isNull _missile)
-};
-_targetASL = _targetASL vectorAdd [0,0,0];	//move 10 meters down for guaranteed hit with ground
-waitUntil {
-	sleep _timeout;
-	[_missile, _targetASL] call _fn_headTowards;
-	(isNull _missile)
-};
+	if (isNull _missile) exitWith {
+        _handle call CBA_fnc_removePerFrameHandler;
+    };
+}, 0, [_missile,_targetASL,_altitude,_fn_getTerrainHeight,_fn_headTowards]] call CBA_fnc_addPerFrameHandler;
 
+waitUntil {
+	isNull _missile;
+};
 deleteVehicle _anchor;
+
+
 
 
 
