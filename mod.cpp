@@ -3,7 +3,7 @@ name = "Ir0n's Ambient Modules";
 
 author = "IR0NSIGHT";
 
-picture         = "title_co.paa";           // Picture displayed from the expansions menu. Optimal size is 2048x1024
+picture         = "";           // Picture displayed from the expansions menu. Optimal size is 2048x1024
 hideName        = "false";                  // Hide the extension name
 hidePicture     = "false";                  // Hide the extension menu
 
