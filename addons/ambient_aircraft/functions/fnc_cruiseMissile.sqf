@@ -40,7 +40,7 @@ _fn_headTowards = {
 	_dot = _dirWp vectorDotProduct _vectorForward;
 	//systemChat ("dot="+str _dot);
 	_angle = acos (_dirWp vectorCos _vectorForward);
-	if (_angle > 16) then {
+	if (_angle > 16) then {	//why 16??
 		//_h = createVehicle ["Sign_Sphere200cm_F",_missilePosASL];
 		//_h setPosWorld _missilePosASL;
 		_diff =  (vectorNormalized (_dirWp vectorDiff vectorDir _missile))vectorMultiply 0.3;
@@ -102,6 +102,7 @@ if (_spawnPosASL#2<0) then {
 
 //spawn missile
 private ["_missile","_nextWP"];
+_missile = objNull;	//shut up linter, its not undefined
 isNil {
 	_missile = createVehicle ["ammo_Missile_Cruise_01",[-5000,-5000,1000]];
 };
@@ -142,18 +143,26 @@ _anchor hideObjectGlobal true;
 ] remoteExec [QFUNC(zeusSelectedCallback), 2, false];
 
 //### go vertical into the sky until reaching 100m height
-waitUntil {
+_missile setVariable ["STATE","UP"];
+_handle = [{
+    params ["_args", "_handle"];
+	_args params ["_missile","_targetASL","_altitude","_fn_getTerrainHeight","_fn_headTowards"];
 	_missilePos = getPosWorld _missile;
 	_dir = (vectorNormalized(_missilePos vectorFromTo _targetASL)) vectorMultiply 10;
 	_nextWP = _dir vectorAdd  _missilePos;
-	_nextWP set [2,([_missilePos] call _fn_getTerrainHeight) + 100];
+	_nextWP set [2,([_missilePos] call _fn_getTerrainHeight) + _altitude];
 	//home towards next wp
 	[_missile, _nextWP] call _fn_headTowards;
 
-	sleep 0.1;
-	(isNull _missile) || (getPosASL _missile # 2) > 100;
-};
+    if ((isNull _missile) || (getPosASL _missile # 2) > _altitude) exitWith {
+        _handle call CBA_fnc_removePerFrameHandler;
+		_missile setVariable ["STATE","TARGET"];
+    };
+}, 0, [_missile,_targetASL,_altitude max 150,_fn_getTerrainHeight,_fn_headTowards]] call CBA_fnc_addPerFrameHandler;
 
+waitUntil {
+	_missile getVariable ["STATE","UP"] isEqualTo "TARGET";
+};
 //### follow terrain at z=200 otowards target, arch at target if under 500m
 _timeout = 0.4;
 waitUntil {
