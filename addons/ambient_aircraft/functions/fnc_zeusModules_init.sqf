@@ -67,3 +67,12 @@
 	FUNC(stabilizeHurt),
 	""
 ] call zen_custom_modules_fnc_register;
+
+//auto arsenal
+[
+	"Arsenal",
+	"Auto Player Arsenal",
+	{	diag_log _this;
+		[ASLToATL (_this#0)] remoteExec[QFUNC(autoArsenal), 2]},
+	""
+] call zen_custom_modules_fnc_register;
