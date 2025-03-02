@@ -1,0 +1,2 @@
+- alarm sound while trigger is active
+- exclusion/inclusion zone for airtraffic: only flyby if player in marker / if player NOT in marker.
