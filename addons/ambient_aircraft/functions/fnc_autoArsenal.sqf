@@ -11,6 +11,11 @@ params [
 
 _items = flatten (_units apply { flatten (getUnitLoadout [_x, true]) select {typeName _x ==  "STRING" && _x isNotEqualTo ""} });
 _crate = createVehicle ["B_supplyCrate_F",_pos];
+clearItemCargoGlobal _crate;
+clearWeaponCargoGlobal _crate;
+clearMagazineCargoGlobal _crate; 
+clearBackpackCargoGlobal _crate;
+
 [_crate, _items, true /*global*/] call ace_arsenal_fnc_initBox;
 
 if (_cleanup) then {
