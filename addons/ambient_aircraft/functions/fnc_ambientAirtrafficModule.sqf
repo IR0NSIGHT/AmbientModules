@@ -10,6 +10,10 @@ if (_activated) then {
     _planeClass = parseSimpleArray (_logic getVariable ["planeClass", "['I_Plane_Fighter_03_dynamicloadout_F']"]);
 	_weights = parseSimpleArray (_logic getVariable ["weights", "[2]"]);	//relative weights
 	_squadSize = parseSimpleArray (_logic getVariable ["squadsize", "[2]"]);	//maximum squad sizes
+
+    _includeZones = parseSimpleArray (_logic getVariable ["includeZones", "[]"]) select { _x in allMapMarkers};
+    _excludeZones = parseSimpleArray (_logic getVariable ["excludeZones", "[]"]) select { _x in allMapMarkers};
+
     assert ((count _planeClass) == (count _weights));
 	assert ((count _planeClass) == (count _squadSize));
 	_timeout = _logic getVariable ["timeout", 10];	//minutes
@@ -31,7 +35,7 @@ if (_activated) then {
         };
     };
 
-	_params = [_timeout,_planeClass,_weights,_squadSize,_side,_duration, getPos _logic];
+	_params = [_timeout,_planeClass,_weights,_squadSize,_side,_duration, getPos _logic, _includeZones, _excludeZones];
 	diag_log ["module airtraffic with values:","params",_params];
 	_params call FUNC(ambientAirtraffic);
 };

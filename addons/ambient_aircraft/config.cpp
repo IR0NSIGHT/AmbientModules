@@ -164,6 +164,20 @@ class CfgVehicles {
                 typeName = "STRING";
                 defaultValue = "[2, 4, 1]";
             };
+			class includeZones: Edit {
+                property = "irn_amb_airtraffic_includeZones";
+                displayName = "inclusion markers";
+				tooltip = "Only spawn flybys for players that are in these marker areas";	// Tooltip description
+                typeName = "STRING";
+                defaultValue = "['airtraffic_include_0']";
+            };
+			class excludeZones: Edit {
+                property = "irn_amb_airtraffic_excludeZones";
+                displayName = "exclusion markers";
+				tooltip = "Only spawn flybys for players that are not in these marker areas";	// Tooltip description
+                typeName = "STRING";
+                defaultValue = "['airtraffic_exclude_0']";
+            };
 			class squadSize: Edit {
                 property = "irn_amb_airtraffic_squadsize";
                 displayName = "squad size array";
