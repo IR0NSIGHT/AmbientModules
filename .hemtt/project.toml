@@ -14,9 +14,6 @@ exclude = [
     "*.xcf"
 ]
 
-[version]
-git_hash = 1 # Disabled
-
 
 [hemtt.launch.default]
 workshop = [
