@@ -93,7 +93,7 @@ if !(_squadronSize isEqualTypeArray (_classes apply {1})) exitWith {
 };
 
 {	//push relevant parameters into anchor object namespace
-	diag_log ["pushing var:",_x#0,_x#1];
+	// diag_log ["pushing var:",_x#0,_x#1];
 	_anchor setVariable ["irn_amb_planes_"+_x#0,_x#1];
 } forEach [
 	["classes",_classes],
@@ -160,11 +160,11 @@ if !(_squadronSize isEqualTypeArray (_classes apply {1})) exitWith {
 
 			// player NOT inside INCLUSION ZONE => abort
 			if (_includeZones isNotEqualTo [] && !(true in (_includeZones apply { _p inArea _x }))) exitWith {
-				diag_log ["player not in inclusion zone"];
+				// diag_log ["player not in inclusion zone"];
 			};
 			// player inside EXCLUSION ZONE => abort
 			if (_excludeZones isNotEqualTo [] && (true in (_excludeZones apply { _p inArea _x }))) exitWith {
-				diag_log ["player is in EXCLUSION ZONE"];
+				// diag_log ["player is in EXCLUSION ZONE"];
 			};
 
 			_class = _classes selectRandomWeighted _weights;		
