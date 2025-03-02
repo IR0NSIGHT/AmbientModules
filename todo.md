@@ -1,2 +1,6 @@
 - alarm sound while trigger is active
-- exclusion/inclusion zone for airtraffic: only flyby if player in marker / if player NOT in marker.
+- automated restricted arsenal based on player loadout(s), maybe also sync with crates 
+    - automated resupply crates
+- scripted cinematic shootdown of aircraft: define aircraft, position, altitude, dir, cause of shotdown: AA missile, enemy jet, explode
+    - make wreck fall down onto defined position.
+- make cruise missile less wobbly
