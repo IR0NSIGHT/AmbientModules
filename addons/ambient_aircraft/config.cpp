@@ -279,6 +279,40 @@ class CfgVehicles {
 		};
 	};	
 
+	class IRN_Module_AutoArsenal: IRN_ModuleBase
+	{
+		scope = 2; //editor visible
+		isGlobal = 0; //only server
+		isTriggerActivated = 1; //wait till all synched triggers are active
+        icon = QPATHTOF(images\icon_arty_3.paa);
+		displayName = "Auto Arsenal";
+		function = QFUNC(autoArsenalModule);
+		class Attributes: AttributesBase //GUI to define input parameters to function
+		{
+			class onlySynched: Checkbox
+			{
+				property = "irn_amb_autoarsenal_onlySynched";				// Unique property (use "<tag>_<moduleClass>_<attributeClass>" format to ensure that the name is unique)
+				displayName = "Use synched units";			// Argument label
+				tooltip = "True: loadout of synched units will be in arsenal. False: loadout of all players will be in arsenal";	// Tooltip description
+				typeName = "BOOL";							// Value type, can be "NUMBER", "STRING" or "BOOL"
+				defaultValue = "false";							// Default attribute value. Warning: This is an expression, and its returned value will be used (50 in this case).
+			};
+			class cleanup: Checkbox
+			{
+				property = "irn_amb_autoarsenal_cleanup";				// Unique property (use "<tag>_<moduleClass>_<attributeClass>" format to ensure that the name is unique)
+				displayName = "Delete synched units";			// Argument label
+				tooltip = "delete synched units after getting loadouts";	// Tooltip description
+				typeName = "BOOL";							// Value type, can be "NUMBER", "STRING" or "BOOL"
+				defaultValue = "false";							// Default attribute value. Warning: This is an expression, and its returned value will be used (50 in this case).
+			};
+			
+			class ModuleDescription: ModuleDescription {};
+		};
+		class ModuleDescription: ModuleDescription {
+			description = "Automatically creates a restricted ACE Arsenal at logics position. Will use all synched units loadout (or optionally from all players) for the arsenal. Will not include JIP players loadouts in MP";
+		};
+	};	
+
 	class IRN_Module_Artillery: IRN_ModuleBase
 	{
 		scope = 2; //editor visible
