@@ -121,6 +121,8 @@ _anchor hideObjectGlobal true;
     [_x, [[_anchor], true]] remoteExec ["addcuratorEditableObjects", 2, false];
 } forEach allCurators;
 
+
+
 //ZEUS information while anchor is selected
 [
     _anchor,
@@ -142,37 +144,27 @@ _anchor hideObjectGlobal true;
     5
 ] remoteExec [QFUNC(zeusSelectedCallback), 2, false];
 
-//### go vertical into the sky until reaching 100m height
-_missile setVariable ["STATE","UP"];
-_handle = [{
-    params ["_args", "_handle"];
-	_args params ["_missile","_targetASL","_altitude","_fn_getTerrainHeight","_fn_headTowards"];
-
+_flyUpwards = {
+	params ["_missile","_targetASL","_altitude","_fn_getTerrainHeight","_fn_headTowards","_anchor","_handle"];
+	diag_log["do UP MODE"];
 	_missilePos = getPosWorld _missile;
 	_dir = (vectorNormalized(_missilePos vectorFromTo _targetASL)) vectorMultiply 10;
 	_nextWP = _dir vectorAdd  _missilePos;
 	_nextWP set [2,([_missilePos] call _fn_getTerrainHeight) + _altitude];
 	//home towards next wp
-	[_missile, _nextWP] call _fn_headTowards;
 
-    if ((isNull _missile) || (getPosASL _missile # 2) > _altitude) exitWith {
-        _handle call CBA_fnc_removePerFrameHandler;
+	if (isNull _missile || (getPosASL _missile # 2) > _altitude) then {
 		_missile setVariable ["STATE","TARGET"];
-    };
-}, 0, [_missile,_targetASL,_altitude max 150,_fn_getTerrainHeight,_fn_headTowards]] call CBA_fnc_addPerFrameHandler;
+		diag_log["switch to TARGET MODE"];
+	};
 
-waitUntil {
-	_missile getVariable ["STATE","UP"] isEqualTo "TARGET";
+	_nextWP
 };
 
-//HELPER = createVehicle ["Sign_Sphere200cm_F",_targetASL];	//debug helper sphere
-
-//### follow terrain at altitude otowards target, arch at target if under 500m
-[{
-	params ["_args", "_handle"];
-	_args params ["_missile","_targetASL","_altitude","_fn_getTerrainHeight","_fn_headTowards"];
-
-	//fly towards a point 100m towards the target, always at 200m above ground
+_flyTarget = {
+	params ["_missile","_targetASL","_altitude","_fn_getTerrainHeight","_fn_headTowards","_anchor","_handle"];
+	diag_log["do TARGET MODE"];
+	//fly towards a point 100m towards the target, always at _altitude above ground
 	_missilePosASL = getPosWorld _missile;
 	_missile setVectorUp surfaceNormal _missilePosASL;
 	_dir = (_missilePosASL vectorFromTo _targetASL);
@@ -193,6 +185,7 @@ waitUntil {
 		};	
 	};
 
+	// SPECIAL MOVES NEAR TARGET
 	if (_distanceToTarget < 600) then {	//arch upwards near target
 		_height = _height max 150;
 	};
@@ -201,22 +194,46 @@ waitUntil {
 	if (_distanceToTarget < _dMax) then { //arch downwards directly at target
 		_nextWP = _targetASL;
 	};
-	//debug helper sphere, set to WP
-	//HELPER setPosWorld _nextWP;
 
-
-	//home towards next wp
-	[_missile, _nextWP] call _fn_headTowards;
-
-	if (isNull _missile) exitWith {
-        _handle call CBA_fnc_removePerFrameHandler;
-    };
-}, 0, [_missile,_targetASL,_altitude,_fn_getTerrainHeight,_fn_headTowards]] call CBA_fnc_addPerFrameHandler;
-
-waitUntil {
-	isNull _missile;
+	if (isNull _missile) then {
+		_handle call CBA_fnc_removePerFrameHandler;
+		deleteVehicle _anchor;
+		deleteVehicle HELPER;
+		diag_log ["exit missile thread"];
+	};
+	
+	_nextWP
 };
-deleteVehicle _anchor;
+
+//### go vertical into the sky until reaching 100m height
+_missile setVariable ["STATE","UP"];
+_handle = [{
+    params ["_args", "_handle"];
+	_args params ["_missile","_targetASL","_altitude","_fn_getTerrainHeight","_fn_headTowards","_anchor","_flyUpwards","_flyTarget"];
+	_state = _missile getVariable ["STATE","UP"];
+	diag_log ["target of cruise missile",_state, [_missile,_targetASL,_altitude,_anchor,_handle]];
+	_params = [_missile,_targetASL,_altitude,_fn_getTerrainHeight,_fn_headTowards,_anchor,_handle];
+	private ["_nextWP"];
+	switch (_missile getVariable ["STATE","UP"]) do {
+		case "UP": {
+			_nextWp = _params call _flyUpwards;
+		};
+		case "TARGET": {
+			_nextWp = _params call _flyTarget;
+		};
+	};
+	//home towards next wp
+	if (!isNull _missile) then {
+		[_missile, _nextWP] call _fn_headTowards;
+		_helper = "Sign_Sphere200cm_F" createVehicle _nextWP;
+		_helper setPosWorld _nextWP;
+	};
+
+	diag_log ["nextWp",_nextWP];
+}, 1, [_missile,_targetASL,_altitude,_fn_getTerrainHeight,_fn_headTowards,_anchor,_flyUpwards, _flyTarget]] call CBA_fnc_addPerFrameHandler;
+
+
+
 
 
 
