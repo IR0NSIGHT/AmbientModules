@@ -40,7 +40,7 @@ The airtraffic will stop after the selected amount of minutes, or if the helper 
 Intended use: Bring life to the skies on missions where one side has total air-superiority, f.e. Afghanistan Patrol Missions
 
 Eden module: find class names of planes (rightclick plane, log class, requires eden enhanced mod). put into string array.
-module is trigger activated or directly active if no trigger is synced.
+module is trigger activated or directly active if no trigger is synced. define marker zones to restrict where flybys happen using inclusion/exclusion zones 
 
 ### Ambient Anti Air fire
 Place the module on a AA unit that uses cannons (missiles not supported). The unit will now engage all enemy aircraft with wild and aggressive fire, but will not hit them.
