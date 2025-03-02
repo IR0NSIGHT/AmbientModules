@@ -15,7 +15,7 @@ exclude = [
 ]
 
 [version]
-git_hash = 0 # Disabled
+git_hash = 1 # Disabled
 
 
 [hemtt.launch.default]
