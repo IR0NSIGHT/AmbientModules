@@ -24,7 +24,7 @@
 *
 *	Examples:
 *		[30, ["B_Heli_Transport_03_unarmed_F"],[1],[3],west,10,[0,0,0]] spawn FUNC(ambPlanes);
-*		
+*		[30, ["B_Heli_Transport_03_unarmed_F"],[1],[3],west,10,[0,0,0],["airtraffic_include_0"]] IRN_ambient_aircraft_fnc_ambientAirtraffic
 */
 #include "script_component.hpp"
 
@@ -40,7 +40,9 @@ params [
 	["_squadronSize",[],[[]]],	//optional
 	["_side",west,[]],
 	["_duration",-1,[0]],
-	["_pos",[0,0,0],[[]],3]
+	["_pos",[0,0,0],[[]],3],
+	["_includeZones",[],[[]]],	//markers where players MUST be inside to spawn flyby
+	["_excludeZones",[],[[]]]	//markers where players CAN NOT be inside to spawn flyby
 ];
 
 
@@ -104,8 +106,8 @@ if !(_squadronSize isEqualTypeArray (_classes apply {1})) exitWith {
 ];
 
 
-[_anchor] spawn {
-	params ["_anchor"];
+[_anchor,_includeZones, _excludeZones] spawn {
+	params ["_anchor","_includeZones","_excludeZones"];
 	_findPosAtMapEdge = {
 		params ["_dir","_pos"];
 		//pos +k*dir = 0 <=> k*dir = -pos <=> k = -pos/dir
@@ -155,6 +157,16 @@ if !(_squadronSize isEqualTypeArray (_classes apply {1})) exitWith {
 			//assert classes and weights legal
 
 			_p = selectRandom _ps;
+
+			// player NOT inside INCLUSION ZONE => abort
+			if (_includeZones isNotEqualTo [] && !(true in (_includeZones apply { _p inArea _x }))) exitWith {
+				diag_log ["player not in inclusion zone"];
+			};
+			// player inside EXCLUSION ZONE => abort
+			if (_excludeZones isNotEqualTo [] && (true in (_excludeZones apply { _p inArea _x }))) exitWith {
+				diag_log ["player is in EXCLUSION ZONE"];
+			};
+
 			_class = _classes selectRandomWeighted _weights;		
 			_alt = 100+random 200;
 			_dir = (vectorNormalized [-1 + random 2,-1 + random 2,0]);
