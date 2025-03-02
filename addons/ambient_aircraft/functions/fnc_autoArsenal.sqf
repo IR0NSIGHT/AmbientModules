@@ -4,13 +4,13 @@
 if (!isServer) exitWith {};
 
 params [
-	["_logic",objNull,[objNull]],
-	["_units",[],[[]]],
+	["_pos",[],[[]]],
+	["_units",allPlayers,[[]]],
 	["_cleanup",false,[false]]
 ];
 
 _items = flatten (_units apply { flatten (getUnitLoadout [_x, true]) select {typeName _x ==  "STRING" && _x isNotEqualTo ""} });
-_crate = createVehicle ["B_supplyCrate_F",position _logic];
+_crate = createVehicle ["B_supplyCrate_F",_pos];
 [_crate, _items, true /*global*/] call ace_arsenal_fnc_initBox;
 
 if (_cleanup) then {

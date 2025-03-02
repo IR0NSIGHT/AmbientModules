@@ -4,7 +4,10 @@
 #include "\z\IRN\addons\main\script_mod.hpp"
 
 #define DEBUG_MODE_FULL
-#define DISABLE_COMPILE_CACHE
+
+#ifdef DEBUG_MODE_FULL
+    #define DISABLE_COMPILE_CACHE
+#endif
 /*
 #ifdef DEBUG_ENABLED_EXAMPLE_ADDON
     #define DEBUG_MODE_FULL

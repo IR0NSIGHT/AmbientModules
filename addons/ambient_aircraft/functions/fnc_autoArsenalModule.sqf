@@ -13,6 +13,6 @@ if (_activated) then {
     _units = [allPlayers,synchronizedObjects _logic] select _onlySynched;
 
     // organize airstrike on synched objects
-    [_logic, _units, _cleanup] call FUNC(autoArsenal);
+    [position _logic, _units, _cleanup] call FUNC(autoArsenal);
 };
 true
