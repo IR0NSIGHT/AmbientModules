@@ -13,6 +13,8 @@ PREP(artilleryInitializer);
 PREP(artilleryVolley);
 PREP(artilleryVolleyDialog);
 PREP(artilleryVolleyModule);
+PREP(autoArsenal);
+PREP(autoArsenalModule);
 PREP(cruiseMissile);
 PREP(cruiseMissileDialog);
 PREP(cruiseMissileModule);
