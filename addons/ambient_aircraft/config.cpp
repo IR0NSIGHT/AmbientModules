@@ -160,7 +160,7 @@ class CfgVehicles {
 			class weights: Edit {
                 property = "irn_amb_airtraffic_weights";
                 displayName = "class weights array";
-				tooltip = "How often to spawn this plane type compared to the others.";	// Tooltip description
+				tooltip = "How often to spawn this plane type compared to the others. one entry per plane class";	// Tooltip description
                 typeName = "STRING";
                 defaultValue = "[2, 4, 1]";
             };
@@ -202,7 +202,20 @@ class CfgVehicles {
 					class ind	{ name = "Independent"; value = 3; };
 				};
 			};
-			
+			class includeZones: Edit {
+                property = "irn_amb_airtraffic_includeZones";
+                displayName = "inclusion markers";
+				tooltip = "Only spawn flybys for players that are in these marker areas. array of marker names";	// Tooltip description
+                typeName = "STRING";
+                defaultValue = "['airtraffic_include_0']";
+            };
+			class excludeZones: Edit {
+                property = "irn_amb_airtraffic_excludeZones";
+                displayName = "exclusion markers";
+				tooltip = "Only spawn flybys for players that are not in these marker areas. array of marker names";	// Tooltip description
+                typeName = "STRING";
+                defaultValue = "['airtraffic_exclude_0']";
+            };
 			class ModuleDescription: ModuleDescription {};
 		};
 		class ModuleDescription: ModuleDescription {
