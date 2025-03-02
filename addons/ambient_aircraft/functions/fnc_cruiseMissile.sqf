@@ -40,12 +40,11 @@ _fn_headTowards = {
 	_dot = _dirWp vectorDotProduct _vectorForward;
 	//systemChat ("dot="+str _dot);
 	_angle = acos (_dirWp vectorCos _vectorForward);
-	if (_angle > 16) then {	//why 16??
-		//_h = createVehicle ["Sign_Sphere200cm_F",_missilePosASL];
-		//_h setPosWorld _missilePosASL;
-		_diff =  (vectorNormalized (_dirWp vectorDiff vectorDir _missile))vectorMultiply 0.3;
-		_dirWp = vectorNormalized (vectorDir _missile vectorAdd _diff);
-	};
+
+	_maxTurnrateGegenKathete = 0.3;
+	_diff =  (vectorNormalized (_dirWp vectorDiff vectorDir _missile))vectorMultiply _maxTurnrateGegenKathete;	//
+	_dirWp = vectorNormalized (vectorDir _missile vectorAdd _diff);
+
 	//cap how fast the missile can turn
 
 	_sideV = [1,0,0];
@@ -146,30 +145,25 @@ _anchor hideObjectGlobal true;
 
 _flyUpwards = {
 	params ["_missile","_targetASL","_altitude","_fn_getTerrainHeight","_fn_headTowards","_anchor","_handle"];
-	diag_log["do UP MODE"];
 	_missilePos = getPosWorld _missile;
 	_dir = (vectorNormalized(_missilePos vectorFromTo _targetASL)) vectorMultiply 10;
 	_nextWP = _dir vectorAdd  _missilePos;
 	_nextWP set [2,([_missilePos] call _fn_getTerrainHeight) + _altitude];
-	//home towards next wp
-
 	if (isNull _missile || (getPosASL _missile # 2) > _altitude) then {
 		_missile setVariable ["STATE","TARGET"];
-		diag_log["switch to TARGET MODE"];
 	};
-
 	_nextWP
 };
 
 _flyTarget = {
 	params ["_missile","_targetASL","_altitude","_fn_getTerrainHeight","_fn_headTowards","_anchor","_handle"];
-	diag_log["do TARGET MODE"];
-	//fly towards a point 100m towards the target, always at _altitude above ground
+	//collect basis infos
 	_missilePosASL = getPosWorld _missile;
 	_missile setVectorUp surfaceNormal _missilePosASL;
 	_dir = (_missilePosASL vectorFromTo _targetASL);
 	_distanceToTarget = _missilePosASL distance2D _targetASL;
 	_wpOffset = 200 min _altitude*4;
+
 	//calculate next wp
 	_nextWP = (getPosWorld _missile) vectorAdd (_dir vectorMultiply (_wpOffset min _distanceToTarget));
 	_distanceToTarget;
@@ -198,8 +192,6 @@ _flyTarget = {
 	if (isNull _missile) then {
 		_handle call CBA_fnc_removePerFrameHandler;
 		deleteVehicle _anchor;
-		deleteVehicle HELPER;
-		diag_log ["exit missile thread"];
 	};
 	
 	_nextWP
@@ -211,7 +203,6 @@ _handle = [{
     params ["_args", "_handle"];
 	_args params ["_missile","_targetASL","_altitude","_fn_getTerrainHeight","_fn_headTowards","_anchor","_flyUpwards","_flyTarget"];
 	_state = _missile getVariable ["STATE","UP"];
-	diag_log ["target of cruise missile",_state, [_missile,_targetASL,_altitude,_anchor,_handle]];
 	_params = [_missile,_targetASL,_altitude,_fn_getTerrainHeight,_fn_headTowards,_anchor,_handle];
 	private ["_nextWP"];
 	switch (_missile getVariable ["STATE","UP"]) do {
@@ -225,12 +216,10 @@ _handle = [{
 	//home towards next wp
 	if (!isNull _missile) then {
 		[_missile, _nextWP] call _fn_headTowards;
-		_helper = "Sign_Sphere200cm_F" createVehicle _nextWP;
-		_helper setPosWorld _nextWP;
+	//	_helper = "Sign_Sphere200cm_F" createVehicle _nextWP;
+	//	_helper setPosWorld _nextWP;
 	};
-
-	diag_log ["nextWp",_nextWP];
-}, 1, [_missile,_targetASL,_altitude,_fn_getTerrainHeight,_fn_headTowards,_anchor,_flyUpwards, _flyTarget]] call CBA_fnc_addPerFrameHandler;
+}, 0, [_missile,_targetASL,_altitude,_fn_getTerrainHeight,_fn_headTowards,_anchor,_flyUpwards, _flyTarget]] call CBA_fnc_addPerFrameHandler;
 
 
 
